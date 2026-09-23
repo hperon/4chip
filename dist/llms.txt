@@ -10,7 +10,8 @@
 - Endereço: Av. Índico, 196, Jardim do Mar, São Bernardo do Campo - SP, CEP 09750-601
 - WhatsApp: +55 11 98050-3850
 - Telefone: +55 11 4941-0156
-- Área atendida: São Bernardo do Campo e região do ABC
+- Área atendida: São Bernardo do Campo, Santo André, São Caetano do Sul e bairros dessas cidades
+- Unidade física: somente na Av. Índico, 196, Jardim do Mar, São Bernardo do Campo. As páginas de outras cidades e bairros indicam a área atendida e não representam filiais.
 - Tipo de assistência: independente, não autorizada por fabricantes
 - Atuação: desde 1997
 - Site oficial desta página: https://consertonotebook.com.br/
@@ -22,3 +23,7 @@ O WhatsApp é usado para informações e contato. O cliente leva o equipamento a
 ## Fonte canônica
 
 - [Página principal](https://consertonotebook.com.br/)
+- [Regiões atendidas](https://consertonotebook.com.br/conserto-notebook/)
+- [São Bernardo do Campo](https://consertonotebook.com.br/conserto-notebook/sao-bernardo-do-campo/)
+- [Santo André](https://consertonotebook.com.br/conserto-notebook/santo-andre/)
+- [São Caetano do Sul](https://consertonotebook.com.br/conserto-notebook/sao-caetano-do-sul/)
