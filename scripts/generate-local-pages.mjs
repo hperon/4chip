@@ -5,6 +5,8 @@ const root = path.resolve(import.meta.dirname, '..');
 const dist = path.join(root, 'dist');
 const serviceDirectoryLink = '<a class="all-regions" href="/servicos/">Ver serviços por equipamento, cidade e bairro <span aria-hidden="true">↗</span></a>';
 const base = fs.readFileSync(path.join(dist, 'index.html'), 'utf8')
+  .replace(/\s*<link rel="describedby" href="\/llms\.txt">/g, '')
+  .replace('</head>', '  <link rel="describedby" href="/llms.txt">\n</head>')
   .replaceAll(serviceDirectoryLink, '')
   .replace(
     '<a class="all-regions" href="/regioes-atendidas/">Ver todas as cidades e bairros <span aria-hidden="true">↗</span></a>',
