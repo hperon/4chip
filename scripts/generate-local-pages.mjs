@@ -103,7 +103,7 @@ function render(city, area = '') {
   const url = `${domain}/${city.slug}/${area ? `${slugify(area)}/` : ''}`;
   const title = `Conserto de Notebook em ${place} | 4Chip`;
   const description = `Conserto e manutenção de notebook, PC e computador para ${place}. Análise técnica na 4Chip em São Bernardo e orçamento sem compromisso.`;
-  const indexable = !area || city.slug === 'sao-bernardo-do-campo' || ['Campestre','Jardim','Vila Assunção','Vila Pires','Utinga','Parque das Nações','Vila Metalúrgica','Centro','Santa Paula','Santo Antônio','Barcelona','Cerâmica','Nova Gerty','Oswaldo Cruz','Olímpico'].includes(area);
+  const indexable = !area || city.slug === 'sao-bernardo-do-campo' || city.slug === 'sao-caetano-do-sul' || ['Centro','Campestre','Jardim','Vila Assunção','Vila Pires','Utinga','Parque das Nações','Vila Metalúrgica'].includes(area);
   let html = base
     .replace(/<title>[^<]*<\/title>/, `<title>${title}</title>`)
   .replace(/<meta name="description" content="[^"]*">/, `<meta name="description" content="${description}">`)
