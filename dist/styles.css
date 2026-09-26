@@ -27,3 +27,4 @@ footer{background:#050b15;color:#a4b0c3;padding:46px 0}.footer-grid{display:grid
 .workshop-gallery{grid-template-rows:repeat(4,125px)}.workshop-gallery .photo-main{grid-row:1/5}
 @media(max-width:980px){.workshop-gallery{grid-template-rows:repeat(4,125px)}}
 @media(max-width:640px){.workshop-gallery{grid-template-columns:1fr 1fr;grid-template-rows:240px repeat(2,145px)}.workshop-gallery .photo-main{grid-column:1/3;grid-row:auto}}
+.diagnostic-result .button{background:#20b15a;box-shadow:0 10px 25px rgba(32,177,90,.22)}.diagnostic-result .button:hover,.diagnostic-result .button:focus-visible{background:#128c49;color:#fff}
