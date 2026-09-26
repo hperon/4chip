@@ -3,7 +3,10 @@ import path from 'node:path';
 
 const root = path.resolve(import.meta.dirname, '..');
 const dist = path.join(root, 'dist');
-const base = fs.readFileSync(path.join(dist, 'index.html'), 'utf8');
+const base = fs.readFileSync(path.join(dist, 'index.html'), 'utf8').replace(
+  '<a class="all-regions" href="/regioes-atendidas/">Ver todas as cidades e bairros <span aria-hidden="true">↗</span></a>',
+  '<a class="all-regions" href="/regioes-atendidas/">Ver todas as cidades e bairros <span aria-hidden="true">↗</span></a><a class="all-regions" href="/servicos/">Ver serviços por equipamento, cidade e bairro <span aria-hidden="true">↗</span></a>'
+);
 const domain = 'https://consertonotebook.com.br';
 const updated = '2026-09-26';
 
@@ -94,6 +97,12 @@ const details = {
 
 const slugify = value => value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 const areaSlug = area => area === 'Bairro Jardim' ? 'jardim' : slugify(area);
+const servicePages = [
+  {slug:'conserto-notebook',name:'notebook',title:'Conserto e Manutenção de Notebook',summary:'Diagnóstico e manutenção de notebooks Windows e MacBook para falhas de tela, teclado, bateria, carcaça, conectores, placa, BGA, sistema, formatação e software.',keywords:['conserto notebook','manutenção notebook','reparo notebook']},
+  {slug:'conserto-computador',name:'computador, desktop e PC',title:'Conserto de Computador, Desktop e PC',summary:'Diagnóstico e manutenção de computadores desktop e PCs: falhas de inicialização, lentidão, superaquecimento, limpeza técnica, upgrades de SSD e memória e troca de componentes.',keywords:['conserto pc','manutenção pc','conserto desktop','manutenção desktop','conserto computador','manutenção computador']},
+  {slug:'conserto-macbook',name:'MacBook',title:'Conserto e Manutenção de MacBook',summary:'Análise técnica de MacBook para falhas de tela, bateria, teclado, conectores, placa e sistema. Serviço independente, sem vínculo de assistência autorizada.',keywords:['conserto MacBook','manutenção MacBook','reparo MacBook']},
+  {slug:'conserto-pc-gamer',name:'PC gamer',title:'Conserto e Manutenção de PC Gamer',summary:'Manutenção de PC gamer para falhas de hardware, superaquecimento, ruído, desligamentos, limpeza, refrigeração e upgrades de componentes.',keywords:['conserto PC gamer','manutenção PC gamer','reparo computador gamer']}
+];
 
 const crumbs = (city, area) => `<nav class="breadcrumbs wrap" aria-label="Navegação estrutural"><a href="/">Início</a><span>›</span><a href="/regioes-atendidas/">Regiões atendidas</a><span>›</span>${area ? `<a href="/${city.slug}/">${city.name}</a><span>›</span><span aria-current="page">${area}</span>` : `<span aria-current="page">${city.name}</span>`}</nav>`;
 
@@ -164,12 +173,66 @@ for (const city of cities) {
 }
 
 const hubCards = cities.map(city => `<article><h2><a href="/${city.slug}/">Conserto de notebook em ${city.name}</a></h2><p>${city.intro}</p><ul>${city.nearby.map(area=>`<li><a href="/${city.slug}/${areaSlug(area)}/">${area}</a></li>`).join('')}</ul></article>`).join('');
-const servicePages = [
-  {slug:'conserto-computador',name:'computador, desktop e PC gamer',title:'Conserto de Computador e PC no ABC',summary:'Diagnóstico e manutenção de desktop e PC gamer: falhas de inicialização, lentidão, superaquecimento, limpeza técnica, upgrades de SSD e memória e troca de componentes.',keywords:['conserto pc','manutenção pc','conserto desktop','manutenção desktop','conserto computador','manutenção computador']},
-  {slug:'conserto-macbook',name:'MacBook',title:'Conserto e Manutenção de MacBook no ABC',summary:'Análise técnica de MacBook para falhas de tela, bateria, teclado, conectores, placa e sistema. Serviço independente, sem vínculo de assistência autorizada.',keywords:['conserto MacBook','manutenção MacBook','reparo MacBook']},
-  {slug:'conserto-pc-gamer',name:'PC gamer',title:'Conserto e Manutenção de PC Gamer no ABC',summary:'Manutenção de PC gamer para falhas de hardware, superaquecimento, ruído, desligamentos, limpeza, refrigeração e upgrades de componentes.',keywords:['conserto PC gamer','manutenção PC gamer','reparo computador gamer']}
-];
-const serviceCards = servicePages.map(service => `<article><h2><a href="/servicos/${service.slug}/">${service.title}</a></h2><p>${service.summary}</p><p>Disponível em São Bernardo, Santo André e São Caetano.</p></article>`);
+const serviceCards = servicePages.map(service => `<article><h2><a href="/${service.slug}/">${service.title} no ABC</a></h2><p>${service.summary}</p><p>Escolha a cidade e o bairro para ver informações locais do atendimento.</p></article>`);
+
+function renderServiceLocation(service, city = null, area = '') {
+  const place = area ? `${area}, ${city.name}` : city?.name || 'ABC Paulista';
+  const url = `${domain}/${service.slug}/${city ? `${city.slug}/` : ''}${area ? `${areaSlug(area)}/` : ''}`;
+  const title = `${service.title} ${city ? `em ${place}` : 'no ABC Paulista'} | 4Chip`;
+  const description = `${service.summary} Atendimento para ${place}; análise presencial em São Bernardo do Campo e orçamento sem compromisso.`;
+  const localDetail = area ? details[city.slug]?.[area] : '';
+  const localIntro = area
+    ? `Em ${area}, ${city.name}, ${localDetail || `na região de ${city.name}`}, você pode buscar informações sobre ${service.name}. O atendimento é feito na unidade da 4Chip em São Bernardo do Campo.`
+    : city
+      ? `Moradores de ${city.name} podem procurar a 4Chip para ${service.name}. ${city.intro}`
+      : `A 4Chip realiza ${service.name} na unidade de São Bernardo do Campo e atende clientes das cidades do ABC Paulista.`;
+  const placeLinks = city
+    ? area
+      ? `<h3>Outros bairros de ${city.name}</h3><ul>${city.nearby.filter(n => n !== area).slice(0, 8).map(n => `<li><a href="/${service.slug}/${city.slug}/${areaSlug(n)}/">${service.title} em ${n}</a></li>`).join('')}</ul><a class="secondary-blue" href="/${service.slug}/${city.slug}/">Ver ${service.name} em ${city.name} →</a>`
+      : `<h3>Bairros de ${city.name}</h3><ul>${city.nearby.map(n => `<li><a href="/${service.slug}/${city.slug}/${areaSlug(n)}/">${service.title} em ${n}</a></li>`).join('')}</ul>`
+    : `<h3>Escolha a cidade</h3><ul>${cities.map(c => `<li><a href="/${service.slug}/${c.slug}/">${service.title} em ${c.name}</a></li>`).join('')}</ul>`;
+  const breadcrumb = `<nav class="breadcrumbs wrap" aria-label="Navegação estrutural"><a href="/">Início</a><span>›</span><a href="/${service.slug}/">${service.title}</a>${city ? `<span>›</span><a href="/${service.slug}/${city.slug}/">${city.name}</a>` : ''}${area ? `<span>›</span><span aria-current="page">${area}</span>` : city ? '<span aria-current="page">' + city.name + '</span>' : '<span aria-current="page">ABC Paulista</span>'}</nav>`;
+  const serviceSchema = `<script type="application/ld+json">${JSON.stringify({'@context':'https://schema.org','@graph':[
+    {'@type':'WebPage','@id':`${url}#webpage`,url,name:title,inLanguage:'pt-BR',breadcrumb:{'@id':`${url}#breadcrumb`},about:{'@id':`${domain}/#business`}},
+    {'@type':'BreadcrumbList','@id':`${url}#breadcrumb`,itemListElement:[
+      {'@type':'ListItem',position:1,name:'Início',item:`${domain}/`},
+      {'@type':'ListItem',position:2,name:service.title,item:`${domain}/${service.slug}/`},
+      ...(city?[{'@type':'ListItem',position:3,name:city.name,item:`${domain}/${service.slug}/${city.slug}/`}]:[]),
+      ...(area?[{'@type':'ListItem',position:4,name:area,item:url}]:[])
+    ]},
+    {'@type':'Service',name:`${service.title} ${city ? `em ${place}` : 'no ABC Paulista'}`,serviceType:service.title,provider:{'@id':`${domain}/#business`},areaServed:{'@type':area?'Place':city?'City':'AdministrativeArea',name:place,containedInPlace:area?{'@type':'City',name:city.name}:undefined},url}
+  ]})}</script>`;
+  const content = `<section class="section local-content" aria-labelledby="service-local-title"><div class="wrap local-grid"><div><p class="kicker dark"><span></span> ${service.title} ${city ? `em ${place}` : 'no ABC Paulista'}</p><h2 id="service-local-title">${service.title} ${city ? `em ${place}` : 'para clientes do ABC'}.</h2><p>${localIntro}</p><p>${service.summary}</p><h3>O que pode ser avaliado</h3><p>Na avaliação de ${service.name}, a equipe verifica os sintomas relatados e as condições do equipamento antes de indicar o reparo. Os serviços podem incluir ${service.keywords.join(', ')}; o procedimento adequado depende do diagnóstico técnico.</p><h3>Como funciona o orçamento</h3><p>O WhatsApp é usado para informações e contato. Para orçamento sem compromisso, leve o equipamento à unidade da 4Chip na Av. Índico, 196, Jardim do Mar, São Bernardo do Campo. Não há unidade nem coleta anunciada ${area ? `em ${area}, ` : city ? `em ${city.name} ` : ''}para este serviço.</p><p>A 4Chip é uma assistência técnica independente e não é autorizada por fabricantes.</p><a class="button wa-link" data-source="service-local" href="https://wa.me/5511980503850?text=${encodeURIComponent(`Olá, gostaria de informações sobre ${service.name}${city ? ` em ${place}` : ''}.`)}" target="_blank" rel="noopener">Pedir informações no WhatsApp ↗</a></div><aside>${placeLinks}<a class="secondary-blue" href="/regioes-atendidas/">Ver todas as regiões atendidas →</a></aside></div></section>`;
+  let html = base
+    .replace(/<title>[^<]*<\/title>/, `<title>${title}</title>`)
+    .replace(/<meta name="description" content="[^"]*">/, `<meta name="description" content="${description}">`)
+    .replace(/<meta property="og:title" content="[^"]*">/, `<meta property="og:title" content="${title}">`)
+    .replace(/<meta property="og:description" content="[^"]*">/, `<meta property="og:description" content="${description}">`)
+    .replace(/<meta property="og:url" content="[^"]*">/, `<meta property="og:url" content="${url}">`)
+    .replace(/<meta name="twitter:title" content="[^"]*">/, `<meta name="twitter:title" content="${title}">`)
+    .replace(/<meta name="twitter:description" content="[^"]*">/, `<meta name="twitter:description" content="${description}">`)
+    .replace(/<link rel="canonical" href="[^"]*">/, `<link rel="canonical" href="${url}">`)
+    .replace(/<meta name="robots" content="[^"]*">/, '<meta name="robots" content="index,follow">')
+    .replace(/<script type="application\/ld\+json">\{"@context":"https:\/\/schema.org","@graph":.*?<\/script>/, serviceSchema)
+    .replace('href="assets/4chip-logo.png"', 'href="/assets/4chip-logo.png"').replaceAll('src="assets/', 'src="/assets/').replace('href="styles.css"', 'href="/styles.css"').replace('src="app.js"', 'src="/app.js"')
+    .replace('href="#inicio" aria-label="4Chip Informática, início"', 'href="/" aria-label="4Chip Informática, início"')
+    .replace('<main id="conteudo">', `<main id="conteudo">${breadcrumb}`)
+    .replace(/<p class="kicker"><span><\/span> São Bernardo do Campo e região do ABC<\/p><h1>.*?<\/h1>/, `<p class="kicker"><span></span> ${place}</p><h1>${service.title} ${city ? `em <em>${place}</em>` : 'no <em>ABC Paulista</em>'}.</h1>`)
+    .replace(/<p class="hero-lead">.*?<\/p>/, `<p class="hero-lead">${service.summary} Atendimento para ${place}, com análise técnica na unidade em São Bernardo do Campo.</p>`)
+    .replace('<section class="section services" id="servicos">', `${content}<section class="section services" id="servicos">`);
+  const folder = path.join(dist, service.slug, ...(city ? [city.slug] : []), ...(area ? [areaSlug(area)] : []));
+  fs.mkdirSync(folder,{recursive:true});
+  fs.writeFileSync(path.join(folder,'index.html'),html);
+  urls.push({url,updated,priority:area?'0.5':city?'0.7':'0.8'});
+}
+
+for (const service of servicePages) {
+  renderServiceLocation(service);
+  for (const city of cities) {
+    renderServiceLocation(service,city);
+    for (const area of city.nearby) renderServiceLocation(service,city,area);
+  }
+}
 
 const hub = base
   .replace(/<title>[^<]*<\/title>/, '<title>Conserto de Notebook no ABC Paulista | Regiões atendidas</title>')
@@ -223,9 +286,11 @@ urls.push({url:`${domain}/servicos/`,updated,priority:'0.8'});
 
 const llmsPath = path.join(dist,'llms.txt');
 const llmsBase = fs.readFileSync(llmsPath,'utf8').split('## Fonte canônica')[0].trimEnd();
-const llms = `${llmsBase}\n\n## Fonte canônica\n\n- [Página principal](${domain}/)\n- [Serviços especializados](${domain}/servicos/)\n- [Conserto de computador e PC](${domain}/servicos/conserto-computador/)\n- [Conserto de MacBook](${domain}/servicos/conserto-macbook/)\n- [Conserto de PC gamer](${domain}/servicos/conserto-pc-gamer/)\n- [Regiões atendidas](${domain}/regioes-atendidas/)\n${cities.map(city => `- [${city.name}](${domain}/${city.slug}/)`).join('\n')}\n`;
+const llmsServiceLinks = servicePages.map(service => `- [${service.title}](${domain}/${service.slug}/)\n${cities.map(city => `  - [${service.title} em ${city.name}](${domain}/${service.slug}/${city.slug}/)\n${city.nearby.map(area => `    - [${service.title} em ${area}, ${city.name}](${domain}/${service.slug}/${city.slug}/${areaSlug(area)}/)`).join('\n')}`).join('\n')}`).join('\n');
+const llms = `${llmsBase}\n\n## Fonte canônica\n\n- [Página principal](${domain}/)\n- [Serviços especializados](${domain}/servicos/)\n- [Regiões atendidas](${domain}/regioes-atendidas/)\n${cities.map(city => `- [${city.name}](${domain}/${city.slug}/)`).join('\n')}\n\n## Serviços por cidade e bairro\n\n${llmsServiceLinks}\n`;
 fs.writeFileSync(llmsPath,llms);
 
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.filter(x=>x.indexable!==false).map(x=>`  <url><loc>${x.url}</loc><lastmod>${x.updated}</lastmod><changefreq>monthly</changefreq><priority>${x.priority}</priority></url>`).join('\n')}\n</urlset>\n`;
 fs.writeFileSync(path.join(dist,'sitemap.xml'),sitemap);
+fs.writeFileSync(path.join(dist,'index.html'),base);
 console.log(`Generated ${urls.length} routes; ${urls.filter(x=>x.indexable!==false).length} indexable URLs.`);
