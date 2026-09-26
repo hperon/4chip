@@ -18,13 +18,13 @@ const cities = [
     slug: 'santo-andre', name: 'Santo André', short: 'Santo André',
     intro: 'A 4Chip atende moradores de Santo André que procuram conserto de notebook e manutenção de computador no ABC. O equipamento é analisado na unidade de São Bernardo antes da apresentação do orçamento.',
     access: 'A loja fica no Jardim do Mar, em São Bernardo, com acesso a partir de Santo André pela Avenida Pereira Barreto e pelos principais corredores do ABC.',
-    nearby: ['Centro', 'Campestre', 'Jardim', 'Vila Assunção', 'Vila Pires', 'Utinga', 'Parque das Nações', 'Vila Metalúrgica']
+    nearby: ['Acampamento Anchieta', 'Araçaúva', 'Bangú', 'Campestre', 'Campo Grande', 'Casa Branca', 'Cata Preta', 'Centreville', 'Centro', 'Cidade São Jorge', 'Condomínio Maracanã', 'Estância Rio Grande', 'Jardim', 'Jardim Alvorada', 'Jardim Alzira Franco', 'Jardim Ana Maria', 'Jardim Bela Vista', 'Jardim Bom Pastor', 'Jardim Cipreste', 'Jardim Clube de Campo', 'Jardim Cristiane', 'Jardim das Maravilhas', 'Jardim do Estádio', 'Jardim Guarará', 'Jardim Guaripocaba', 'Jardim Ipanema', 'Jardim Irene', 'Jardim Itapoan', 'Jardim Jamaica', 'Jardim Joaquim Eugênio de Lima', 'Jardim Las Vegas', 'Jardim Marek', 'Jardim Rina', 'Jardim Santa Cristina', 'Jardim Santo Alberto', 'Jardim Santo André', 'Jardim Santo André CDHU', 'Jardim Santo Antônio', 'Jardim Stella', 'Jardim Telles de Menezes', 'Jardim Utinga', 'Jardim Vila Rica', 'Miami Riviera', 'Novo Homero Thon', 'Paraíso', 'Paranapiacaba', 'Parque América', 'Parque Capuava', 'Parque das Garças', 'Parque das Nações', 'Parque do Pedroso', 'Parque Erasmo Assunção', 'Parque Gerassi', 'Parque Jaçatuba', 'Parque João Ramalho', 'Parque Marajoara', 'Parque Novo Oratório', 'Parque Oratório', 'Parque Represa Billings II', 'Parque Represa Billings III', 'Parque Rio Grande', 'Pinheirinho', 'Pólo Petroquímico Capuava', 'Recreio da Borda do Campo', 'Rio Bonito', 'Rio Grande', 'Rio Mogi', 'Rio Pequeno', 'Santa Terezinha', 'Silveira', 'Sítio dos Teco', 'Sítio dos Vianas', 'Sítio Taquaral', 'Três Divisas', 'Utinga', 'Várzea do Tamanduateí', 'Vila Alice', 'Vila Alpina', 'Vila Alzira', 'Vila América', 'Vila Aquilino', 'Vila Assunção', 'Vila Bastos', 'Vila Camilópolis', 'Vila Curuçá', 'Vila Floresta', 'Vila Francisco Matarazzo', 'Vila Gilda', 'Vila Guaraciaba', 'Vila Guarani', 'Vila Guiomar', 'Vila Helena', 'Vila Homero Thon', 'Vila Humaitá', 'Vila João Ramalho', 'Vila Junqueira', 'Vila Linda', 'Vila Lucinda', 'Vila Lutécia', 'Vila Luzita', 'Vila Metalúrgica', 'Vila Palmares', 'Vila Pires', 'Vila Príncipe de Gales', 'Vila Progresso', 'Vila Sacadura Cabral', 'Vila Scarpelli', 'Vila Suíça', 'Vila Tibiriçá', 'Vila Valparaíso', 'Vila Vitória', 'Waisberg']
   },
   {
     slug: 'sao-caetano-do-sul', name: 'São Caetano do Sul', short: 'São Caetano',
     intro: 'Moradores de São Caetano do Sul podem procurar a 4Chip para conserto de notebook, PC, desktop e computador gamer. A análise e o orçamento são realizados na loja de São Bernardo do Campo.',
     access: 'O atendimento acontece na Av. Índico, 196, Jardim do Mar, com acesso para quem vem de São Caetano pelas ligações municipais do ABC.',
-    nearby: ['Centro', 'Santa Paula', 'Santo Antônio', 'Barcelona', 'Cerâmica', 'Nova Gerty', 'Oswaldo Cruz', 'Olímpico']
+    nearby: ['Barcelona', 'Boa Vista', 'Centro', 'Cerâmica', 'Fundação', 'Jardim São Caetano', 'Mauá', 'Nova Gerty', 'Olímpico', 'Oswaldo Cruz', 'Prosperidade', 'Santa Maria', 'Santa Paula', 'Santo Antônio', 'São José']
   }
 ];
 
@@ -76,7 +76,7 @@ function localSection(city, area) {
   const place = area ? `${area}, ${city.name}` : city.name;
   const context = area ? `${area} é ${details[area] || `uma região de ${city.name}`}. A 4Chip atende moradores do bairro na unidade de São Bernardo do Campo.` : city.intro;
   const neighbors = city.nearby.filter(n => n !== area).slice(0, 6);
-  return `<section class="section local-content" aria-labelledby="local-title"><div class="wrap local-grid"><div><p class="kicker dark"><span></span> Atendimento para ${place}</p><h2 id="local-title">Conserto e manutenção de notebook perto de ${area || city.short}.</h2><p>${context}</p><p>${city.access}</p><p>Atendemos notebooks Windows, MacBooks, desktops e PCs gamer. Entre os serviços estão troca de tela, teclado e bateria, restauração de carcaça, reparo de placa e BGA, Windows, formatação, software, antivírus, limpeza e upgrades.</p><p>O WhatsApp serve para informações e contato. Para identificar a causa do defeito e calcular peças e mão de obra, o equipamento precisa passar por análise técnica na loja.</p></div><aside><h3>Regiões próximas atendidas</h3><ul>${neighbors.map(n => `<li><a href="/${city.slug}/${slugify(n)}/">Conserto de notebook em ${n}</a></li>`).join('')}</ul><a class="secondary-blue" href="/${city.slug}/">Ver atendimento em ${city.name} <span aria-hidden="true">→</span></a></aside></div></section>`;
+  return `<section class="section local-content" aria-labelledby="local-title"><div class="wrap local-grid"><div><p class="kicker dark"><span></span> Atendimento para ${place}</p><h2 id="local-title">Conserto e manutenção de notebook em ${place}.</h2><p>${context}</p><p>${city.access}</p><h3>O que a 4Chip avalia</h3><p>Para moradores de ${place}, a assistência recebe notebooks Windows, MacBooks, computadores desktop e PCs gamer para análise de defeitos em tela, teclado, bateria, carcaça, conectores, placa-mãe e BGA, além de Windows, formatação, software, antivírus, limpeza e upgrades.</p><h3>Como funciona o atendimento para ${area || city.short}</h3><p>O contato por WhatsApp é para informações. O equipamento deve ser levado à unidade da 4Chip no Jardim do Mar, em São Bernardo do Campo, onde ocorre a análise técnica e é preparado o orçamento sem compromisso. Não há unidade ou coleta anunciada em ${area ? `${area}, ` : ''}${city.name}.</p></div><aside><h3>Outras regiões de ${city.name}</h3><ul>${neighbors.map(n => `<li><a href="/${city.slug}/${slugify(n)}/">Conserto de notebook em ${n}</a></li>`).join('')}</ul><a class="secondary-blue" href="/${city.slug}/">Ver atendimento em ${city.name} <span aria-hidden="true">→</span></a></aside></div></section>`;
 }
 
 function schema(city, area, url, title) {
@@ -101,6 +101,7 @@ function render(city, area = '') {
   const url = `${domain}/${city.slug}/${area ? `${slugify(area)}/` : ''}`;
   const title = `Conserto de Notebook em ${place} | 4Chip`;
   const description = `Conserto e manutenção de notebook, PC e computador para ${place}. Análise técnica na 4Chip em São Bernardo e orçamento sem compromisso.`;
+  const indexable = !area || ['Jardim do Mar','Centro','Rudge Ramos','Baeta Neves','Assunção','Nova Petrópolis','Paulicéia','Demarchi','Campestre','Jardim','Vila Assunção','Vila Pires','Utinga','Parque das Nações','Vila Metalúrgica','Centro','Santa Paula','Santo Antônio','Barcelona','Cerâmica','Nova Gerty','Oswaldo Cruz','Olímpico'].includes(area);
   let html = base
     .replace(/<title>[^<]*<\/title>/, `<title>${title}</title>`)
   .replace(/<meta name="description" content="[^"]*">/, `<meta name="description" content="${description}">`)
@@ -111,6 +112,7 @@ function render(city, area = '') {
     .replace(/<meta name="twitter:title" content="[^"]*">/, `<meta name="twitter:title" content="${title}">`)
     .replace(/<meta name="twitter:description" content="[^"]*">/, `<meta name="twitter:description" content="${description}">`)
     .replace(/<link rel="canonical" href="[^"]*">/, `<link rel="canonical" href="${url}">`)
+    .replace(/<meta name="robots" content="[^"]*">/, `<meta name="robots" content="${indexable ? 'index,follow' : 'noindex,follow'}">`)
     .replace(/<script type="application\/ld\+json">\{"@context":"https:\/\/schema.org","@graph":.*?<\/script>/, schema(city, area, url, title))
     .replace('href="assets/4chip-logo.png"', 'href="/assets/4chip-logo.png"')
     .replaceAll('src="assets/', 'src="/assets/')
@@ -126,7 +128,7 @@ function render(city, area = '') {
     .replace('<section class="section services" id="servicos">', `${localSection(city, area)}<section class="section services" id="servicos">`);
   fs.mkdirSync(folder, {recursive:true});
   fs.writeFileSync(path.join(folder, 'index.html'), html);
-  return {url, updated, priority: area ? '0.5' : '0.9', indexable: !area || city.slug !== 'sao-bernardo-do-campo' || ['Jardim do Mar','Centro','Rudge Ramos','Baeta Neves','Assunção','Nova Petrópolis','Paulicéia','Demarchi'].includes(area)};
+  return {url, updated, priority: area ? '0.5' : '0.9', indexable};
 }
 
 const urls = [{url:`${domain}/`,updated,priority:'1.0'},{url:`${domain}/regioes-atendidas/`,updated,priority:'0.9'}];
@@ -194,9 +196,10 @@ fs.writeFileSync(path.join(dist,'servicos','index.html'),serviceHub);
 urls.push({url:`${domain}/servicos/`,updated,priority:'0.8'});
 
 const llmsPath = path.join(dist,'llms.txt');
-const llms = fs.readFileSync(llmsPath,'utf8').replace('- [Regiões atendidas](https://consertonotebook.com.br/regioes-atendidas/)', '- [Serviços especializados](https://consertonotebook.com.br/servicos/)\n- [Conserto de computador e PC](https://consertonotebook.com.br/servicos/conserto-computador/)\n- [Conserto de MacBook](https://consertonotebook.com.br/servicos/conserto-macbook/)\n- [Conserto de PC gamer](https://consertonotebook.com.br/servicos/conserto-pc-gamer/)\n- [Regiões atendidas](https://consertonotebook.com.br/regioes-atendidas/)');
+const llmsBase = fs.readFileSync(llmsPath,'utf8').split('## Fonte canônica')[0].trimEnd();
+const llms = `${llmsBase}\n\n## Fonte canônica\n\n- [Página principal](${domain}/)\n- [Serviços especializados](${domain}/servicos/)\n- [Conserto de computador e PC](${domain}/servicos/conserto-computador/)\n- [Conserto de MacBook](${domain}/servicos/conserto-macbook/)\n- [Conserto de PC gamer](${domain}/servicos/conserto-pc-gamer/)\n- [Regiões atendidas](${domain}/regioes-atendidas/)\n${cities.map(city => `- [${city.name}](${domain}/${city.slug}/)`).join('\n')}\n`;
 fs.writeFileSync(llmsPath,llms);
 
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.filter(x=>x.indexable!==false).map(x=>`  <url><loc>${x.url}</loc><lastmod>${x.updated}</lastmod><changefreq>monthly</changefreq><priority>${x.priority}</priority></url>`).join('\n')}\n</urlset>\n`;
 fs.writeFileSync(path.join(dist,'sitemap.xml'),sitemap);
-console.log(`Generated ${urls.length} indexable URLs.`);
+console.log(`Generated ${urls.length} routes; ${urls.filter(x=>x.indexable!==false).length} indexable URLs.`);
