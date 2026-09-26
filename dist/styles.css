@@ -20,3 +20,4 @@ footer{background:#050b15;color:#a4b0c3;padding:46px 0}.footer-grid{display:grid
 @media(max-width:480px){.home-region-links{grid-template-columns:1fr}.home-region-links .all-regions{grid-column:auto}}
 .location-grid.service-grid-two{grid-template-columns:repeat(2,minmax(0,1fr))}
 @media(max-width:800px){.location-grid.service-grid-two{grid-template-columns:1fr}}
+.home-region-links .all-regions:hover,.home-region-links .all-regions:focus-visible{background:#e8f0fe;color:#173d7a;border-color:var(--blue)}
