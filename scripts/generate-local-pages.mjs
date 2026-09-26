@@ -4,14 +4,28 @@ import path from 'node:path';
 const root = path.resolve(import.meta.dirname, '..');
 const dist = path.join(root, 'dist');
 const tintimUrl = 'https://tintim.link/whatsapp/a8783cfb-24b3-478e-94e2-5d423ec44601/5b1ef344-ca2f-483b-8dbc-769492a2b317';
+const googleReviewsUrl = 'https://www.google.com/search?q=4Chip+Inform%C3%A1tica+S%C3%A3o+Bernardo+do+Campo+avalia%C3%A7%C3%B5es#lrd=0x94ce4234c50d2d93:0xa0d90771ec4e5778,1,,,,';
 const floatingWhatsapp = `<a class="whatsapp-float wa-link" data-source="floating" href="${tintimUrl}" target="_blank" rel="noopener" aria-label="Falar com a 4Chip pelo WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.52 3.48A11.82 11.82 0 0 0 12.1 0C5.55 0 .22 5.33.22 11.88c0 2.09.55 4.13 1.6 5.93L.12 24l6.34-1.66a11.88 11.88 0 0 0 5.64 1.43h.01c6.55 0 11.88-5.33 11.88-11.88 0-3.17-1.23-6.15-3.47-8.41ZM12.11 21.75a9.9 9.9 0 0 1-5.04-1.38l-.36-.21-3.76.99 1-3.67-.24-.38a9.84 9.84 0 0 1-1.51-5.22c0-5.46 4.45-9.91 9.92-9.91 2.64 0 5.13 1.03 7 2.9a9.84 9.84 0 0 1 2.9 7.01c0 5.46-4.45 9.91-9.91 9.91Zm5.44-7.42c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.47-2.4-1.49-.88-.78-1.48-1.75-1.65-2.05-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.08-.79.37-.27.3-1.04 1.02-1.04 2.49s1.07 2.89 1.22 3.09c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.5 1.69.64.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35Z"/></svg><span>WhatsApp</span></a>`;
 const workshopPhotoExtras = [
-  ['assets/manutencao-pc-gamer.webp', 'Imagem ilustrativa de técnico fazendo upgrade em computador gamer', 'Imagem ilustrativa | Manutenção de PC gamer'],
-  ['assets/troca-tela-notebook.webp', 'Imagem ilustrativa de reparo da tela de notebook em bancada técnica', 'Imagem ilustrativa | Troca de tela'],
-  ['assets/upgrade-ssd-memoria.webp', 'Imagem ilustrativa de instalação de SSD e memória em notebook aberto', 'Imagem ilustrativa | Upgrade de SSD e memória']
+  ['assets/manutencao-pc-gamer.webp', 'Imagem ilustrativa de técnico fazendo upgrade em computador gamer', 'Manutenção de PC gamer'],
+  ['assets/troca-tela-notebook.webp', 'Imagem ilustrativa de reparo da tela de notebook em bancada técnica', 'Troca de tela de notebook'],
+  ['assets/upgrade-ssd-memoria.webp', 'Imagem ilustrativa de instalação de SSD e memória em notebook aberto', 'Upgrade de SSD e memória']
 ].map(([src, alt, caption]) => `<figure class="photo-extra"><img src="${src}" width="768" height="512" loading="lazy" decoding="async" alt="${alt}"><figcaption>${caption}</figcaption></figure>`).join('');
 const serviceDirectoryLink = '<a class="all-regions" href="/servicos/">Ver serviços por equipamento, cidade e bairro <span aria-hidden="true">↗</span></a>';
 const base = fs.readFileSync(path.join(dist, 'index.html'), 'utf8')
+  .replaceAll('496', '503')
+  .replace(
+    '<li><b>4,7 ★</b><span>em 503 avaliações</span></li>',
+    `<li><a class="proof-google" href="${googleReviewsUrl}" target="_blank" rel="noopener"><b>4,7 ★ no Google</b><span>503 avaliações públicas ↗</span></a></li>`
+  )
+  .replace(
+    '<div class="rating-box"><strong>4,7</strong><div><span aria-label="5 estrelas">★★★★★</span><p>503 avaliações no Google</p></div></div>',
+    `<a class="rating-box google-rating" href="${googleReviewsUrl}" target="_blank" rel="noopener" aria-label="Ver 503 avaliações da 4Chip no Google, nota 4,7"><strong>4,7</strong><div><span aria-label="5 estrelas">★★★★★</span><p>503 avaliações no Google</p><small>Ver avaliações ↗</small></div></a>`
+  )
+  .replace(
+    '<figure><div class="stars" aria-label="5 estrelas">★★★★★</div><blockquote>“Equipe show de bola, já fiz três trabalhos com eles, todos impecáveis.”</blockquote><figcaption><span>TS</span><div><b>Thiego Sousa</b><small>Avaliação pública no Google</small></div></figcaption></figure>\n      <figure><div class="stars" aria-label="5 estrelas">★★★★★</div><blockquote>“Bom atendimento, entrega no prazo, profissionais atenciosos.”</blockquote><figcaption><span>AA</span><div><b>Anderson Souza do Amaral</b><small>Avaliação pública no Google</small></div></figcaption></figure>',
+    '<figure><div class="stars" aria-label="5 estrelas">★★★★★</div><blockquote>“Fui super bem atendido.”</blockquote><figcaption><span>LA</span><div><b>Lucas Augusto</b><small>Avaliação pública no Google</small></div></figcaption></figure>\n      <figure><div class="stars" aria-label="5 estrelas">★★★★★</div><blockquote>“Resolveram meu problema em questão de horas.”</blockquote><figcaption><span>RR</span><div><b>Raphael Roque</b><small>Avaliação pública no Google</small></div></figcaption></figure>\n      <figure><div class="stars" aria-label="5 estrelas">★★★★★</div><blockquote>“Serviço de confiança, preço honesto.”</blockquote><figcaption><span>AS</span><div><b>André Silveira</b><small>Avaliação pública no Google</small></div></figcaption></figure>'
+  )
   .replace(/<figure class="photo-extra">[\s\S]*?<\/figure>/g, '')
   .replace('</div><div class="workshop-copy">', `${workshopPhotoExtras}</div><div class="workshop-copy">`)
   .replace(/href="https:\/\/wa\.me\/[^"]*"/g, `href="${tintimUrl}"`)
