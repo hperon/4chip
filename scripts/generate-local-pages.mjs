@@ -3,10 +3,13 @@ import path from 'node:path';
 
 const root = path.resolve(import.meta.dirname, '..');
 const dist = path.join(root, 'dist');
-const base = fs.readFileSync(path.join(dist, 'index.html'), 'utf8').replace(
-  '<a class="all-regions" href="/regioes-atendidas/">Ver todas as cidades e bairros <span aria-hidden="true">↗</span></a>',
-  '<a class="all-regions" href="/regioes-atendidas/">Ver todas as cidades e bairros <span aria-hidden="true">↗</span></a><a class="all-regions" href="/servicos/">Ver serviços por equipamento, cidade e bairro <span aria-hidden="true">↗</span></a>'
-);
+const serviceDirectoryLink = '<a class="all-regions" href="/servicos/">Ver serviços por equipamento, cidade e bairro <span aria-hidden="true">↗</span></a>';
+const base = fs.readFileSync(path.join(dist, 'index.html'), 'utf8')
+  .replaceAll(serviceDirectoryLink, '')
+  .replace(
+    '<a class="all-regions" href="/regioes-atendidas/">Ver todas as cidades e bairros <span aria-hidden="true">↗</span></a>',
+    `<a class="all-regions" href="/regioes-atendidas/">Ver todas as cidades e bairros <span aria-hidden="true">↗</span></a>${serviceDirectoryLink}`
+  );
 const domain = 'https://consertonotebook.com.br';
 const updated = '2026-09-26';
 
@@ -242,7 +245,7 @@ const hub = base
   .replace('href="#inicio" aria-label="4Chip Informática, início"', 'href="/" aria-label="4Chip Informática, início"')
   .replace('<main id="conteudo">', '<main id="conteudo"><nav class="breadcrumbs wrap" aria-label="Navegação estrutural"><a href="/">Início</a><span>›</span><span aria-current="page">Regiões atendidas</span></nav>')
   .replace('São Bernardo do Campo e região do ABC</p><h1>Conserto de notebook em <em>São Bernardo do Campo.</em></h1>', 'São Bernardo, Santo André e São Caetano</p><h1>Conserto de notebook no <em>ABC Paulista.</em></h1>')
-  .replace('<section class="section services" id="servicos">', `<section class="section location-hub"><div class="wrap"><p class="kicker dark"><span></span> Regiões atendidas</p><h2>Encontre sua cidade e seu bairro.</h2><div class="location-grid">${hubCards}</div><h2>Outros tipos de conserto</h2><div class="location-grid">${serviceCards.join('')}</div></div></section><section class="section services" id="servicos">`);
+  .replace('<section class="section services" id="servicos">', `<section class="section location-hub"><div class="wrap"><p class="kicker dark"><span></span> Regiões atendidas</p><h2>Encontre sua cidade e seu bairro.</h2><div class="location-grid">${hubCards}</div><h2>Outros tipos de conserto</h2><div class="location-grid service-grid-two">${serviceCards.join('')}</div></div></section><section class="section services" id="servicos">`);
 fs.mkdirSync(path.join(dist,'regioes-atendidas'),{recursive:true});
 fs.writeFileSync(path.join(dist,'regioes-atendidas','index.html'),hub);
 
@@ -279,7 +282,7 @@ const serviceHub = base
   .replace('href="assets/4chip-logo.png"', 'href="/assets/4chip-logo.png"').replaceAll('src="assets/', 'src="/assets/').replace('href="styles.css"', 'href="/styles.css"').replace('src="app.js"', 'src="/app.js"')
   .replace('href="#inicio" aria-label="4Chip Informática, início"', 'href="/" aria-label="4Chip Informática, início"')
   .replace('São Bernardo do Campo e região do ABC</p><h1>Conserto de notebook em <em>São Bernardo do Campo.</em></h1>', 'Serviços da 4Chip no ABC Paulista</p><h1>Conserto de computador, <em>MacBook e PC gamer.</em></h1>')
-  .replace('<section class="section services" id="servicos">', `<section class="section location-hub"><div class="wrap"><p class="kicker dark"><span></span> Serviços especializados</p><h2>Encontre o serviço para seu equipamento.</h2><div class="location-grid">${serviceCards.join('')}</div></div></section><section class="section services" id="servicos">`);
+  .replace('<section class="section services" id="servicos">', `<section class="section location-hub"><div class="wrap"><p class="kicker dark"><span></span> Serviços especializados</p><h2>Encontre o serviço para seu equipamento.</h2><div class="location-grid service-grid-two">${serviceCards.join('')}</div></div></section><section class="section services" id="servicos">`);
 fs.mkdirSync(path.join(dist,'servicos'),{recursive:true});
 fs.writeFileSync(path.join(dist,'servicos','index.html'),serviceHub);
 urls.push({url:`${domain}/servicos/`,updated,priority:'0.8'});
