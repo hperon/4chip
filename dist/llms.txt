@@ -6,7 +6,8 @@
 
 - Nome: 4Chip Informática
 - Serviço principal: conserto de notebook em São Bernardo do Campo
-- Serviços: conserto de notebook, manutenção de notebook, conserto de PC, manutenção de PC, conserto de desktop, manutenção de desktop, conserto de computador, manutenção de computador, reparo de placa-mãe, troca de tela e teclado, formatação, remoção de vírus, instalação de SSD e memória, redes e suporte para empresas
+- Equipamentos: notebooks Windows, MacBooks, computadores desktop e PCs gamer
+- Serviços: manutenção e reparo, troca de tela, teclado e bateria, restauração de carcaça e dobradiças, reparo de placa-mãe e BGA, instalação e recuperação do Windows, formatação, software, aplicativos, antivírus, limpeza técnica, SSD, memória e upgrades
 - Endereço: Av. Índico, 196, Jardim do Mar, São Bernardo do Campo - SP, CEP 09750-601
 - WhatsApp: +55 11 98050-3850
 - Telefone: +55 11 4941-0156
@@ -23,7 +24,7 @@ O WhatsApp é usado para informações e contato. O cliente leva o equipamento a
 ## Fonte canônica
 
 - [Página principal](https://consertonotebook.com.br/)
-- [Regiões atendidas](https://consertonotebook.com.br/conserto-notebook/)
-- [São Bernardo do Campo](https://consertonotebook.com.br/conserto-notebook/sao-bernardo-do-campo/)
-- [Santo André](https://consertonotebook.com.br/conserto-notebook/santo-andre/)
-- [São Caetano do Sul](https://consertonotebook.com.br/conserto-notebook/sao-caetano-do-sul/)
+- [Regiões atendidas](https://consertonotebook.com.br/regioes-atendidas/)
+- [São Bernardo do Campo](https://consertonotebook.com.br/sao-bernardo-do-campo/)
+- [Santo André](https://consertonotebook.com.br/santo-andre/)
+- [São Caetano do Sul](https://consertonotebook.com.br/sao-caetano-do-sul/)

@@ -2,5 +2,10 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "outputDirectory": "dist",
   "cleanUrls": true,
-  "trailingSlash": true
+  "trailingSlash": true,
+  "redirects": [
+    {"source": "/conserto-notebook", "destination": "/regioes-atendidas", "permanent": true},
+    {"source": "/conserto-notebook/:city", "destination": "/:city", "permanent": true},
+    {"source": "/conserto-notebook/:city/:area", "destination": "/:city/:area", "permanent": true}
+  ]
 }
