@@ -22,10 +22,6 @@ const base = fs.readFileSync(path.join(dist, 'index.html'), 'utf8')
     '<div class="rating-box"><strong>4,7</strong><div><span aria-label="5 estrelas">★★★★★</span><p>503 avaliações no Google</p></div></div>',
     `<a class="rating-box google-rating" href="${googleReviewsUrl}" target="_blank" rel="noopener" aria-label="Ver 503 avaliações da 4Chip no Google, nota 4,7"><strong>4,7</strong><div><span aria-label="5 estrelas">★★★★★</span><p>503 avaliações no Google</p><small>Ver avaliações ↗</small></div></a>`
   )
-  .replace(
-    '<figure><div class="stars" aria-label="5 estrelas">★★★★★</div><blockquote>“Equipe show de bola, já fiz três trabalhos com eles, todos impecáveis.”</blockquote><figcaption><span>TS</span><div><b>Thiego Sousa</b><small>Avaliação pública no Google</small></div></figcaption></figure>\n      <figure><div class="stars" aria-label="5 estrelas">★★★★★</div><blockquote>“Bom atendimento, entrega no prazo, profissionais atenciosos.”</blockquote><figcaption><span>AA</span><div><b>Anderson Souza do Amaral</b><small>Avaliação pública no Google</small></div></figcaption></figure>',
-    '<figure><div class="stars" aria-label="5 estrelas">★★★★★</div><blockquote>“Fui super bem atendido.”</blockquote><figcaption><span>LA</span><div><b>Lucas Augusto</b><small>Avaliação pública no Google</small></div></figcaption></figure>\n      <figure><div class="stars" aria-label="5 estrelas">★★★★★</div><blockquote>“Resolveram meu problema em questão de horas.”</blockquote><figcaption><span>RR</span><div><b>Raphael Roque</b><small>Avaliação pública no Google</small></div></figcaption></figure>\n      <figure><div class="stars" aria-label="5 estrelas">★★★★★</div><blockquote>“Serviço de confiança, preço honesto.”</blockquote><figcaption><span>AS</span><div><b>André Silveira</b><small>Avaliação pública no Google</small></div></figcaption></figure>'
-  )
   .replace(/<figure class="photo-extra">[\s\S]*?<\/figure>/g, '')
   .replace('</div><div class="workshop-copy">', `${workshopPhotoExtras}</div><div class="workshop-copy">`)
   .replace(/href="https:\/\/wa\.me\/[^"]*"/g, `href="${tintimUrl}"`)
