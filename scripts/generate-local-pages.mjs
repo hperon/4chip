@@ -304,8 +304,12 @@ const appJsPath = path.join(dist,'app.js');
 const appJs = fs.readFileSync(appJsPath,'utf8');
 const oldWhatsAppBuilder = 'const buildWhatsApp=message=>`https://wa.me/${phone}?text=${encodeURIComponent(message)}`;';
 const newWhatsAppBuilder = `const buildWhatsApp=message=>${JSON.stringify(tintimUrl)};`;
-if (appJs.includes(oldWhatsAppBuilder)) fs.writeFileSync(appJsPath,appJs.replace(oldWhatsAppBuilder,newWhatsAppBuilder));
-else if (!appJs.includes(newWhatsAppBuilder)) throw new Error('Could not update the WhatsApp link in app.js');
+let updatedAppJs = appJs.replace(oldWhatsAppBuilder,newWhatsAppBuilder);
+updatedAppJs = updatedAppJs
+  .replace('list.hidden=true;result.hidden=false;', 'list.hidden=true;card.classList.add("has-selection");result.hidden=false;')
+  .replace('result.hidden=true;list.hidden=false;', 'result.hidden=true;card.classList.remove("has-selection");list.hidden=false;');
+if (!updatedAppJs.includes(newWhatsAppBuilder)) throw new Error('Could not update the WhatsApp link in app.js');
+fs.writeFileSync(appJsPath,updatedAppJs);
 
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.filter(x=>x.indexable!==false).map(x=>`  <url><loc>${x.url}</loc><lastmod>${x.updated}</lastmod><changefreq>monthly</changefreq><priority>${x.priority}</priority></url>`).join('\n')}\n</urlset>\n`;
 fs.writeFileSync(path.join(dist,'sitemap.xml'),sitemap);
