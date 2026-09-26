@@ -29,49 +29,67 @@ const cities = [
 ];
 
 const details = {
-  'Alves Dias': 'bairro da região leste de São Bernardo, conectado ao corredor da Estrada dos Alvarengas',
-  'Anchieta': 'região próxima à Rodovia Anchieta e aos acessos para o Centro de São Bernardo',
-  'Balneária': 'bairro na região do Riacho Grande, distante da unidade do Jardim do Mar',
-  'Batistini': 'bairro da região sul de São Bernardo, com acesso pela Estrada Galvão Bueno',
-  'Cooperativa': 'região industrial e residencial no eixo da Avenida Humberto de Alencar Castelo Branco',
-  'Dos Casa': 'bairro da região leste de São Bernardo, próximo à Estrada dos Alvarengas',
-  'Dos Finco': 'região do Riacho Grande, na área próxima à Represa Billings',
-  'Ferrazópolis': 'bairro próximo ao Centro e aos acessos da Via Anchieta',
-  'Independência': 'bairro da região sudeste de São Bernardo, próximo aos corredores da cidade',
-  'Jordanópolis': 'bairro próximo à divisa com Diadema e aos acessos da Rodovia dos Imigrantes',
-  'Montanhão': 'região residencial na área leste de São Bernardo',
-  'Planalto': 'bairro próximo aos corredores industriais e à Via Anchieta',
-  'Rio Grande': 'região do Riacho Grande, às margens da Represa Billings',
-  'Santa Terezinha': 'bairro próximo à região central e ao Paço Municipal',
-  'Taboão': 'bairro na divisa com Diadema, próximo à Rodovia dos Imigrantes',
-  'Jardim do Mar': 'bairro onde está localizada a unidade da 4Chip, próximo à Avenida Kennedy e ao Paço Municipal',
-  'Chácara Inglesa': 'bairro residencial próximo ao Centro de São Bernardo do Campo',
-  'Parque dos Pássaros': 'bairro residencial conhecido por casas amplas e ruas arborizadas',
-  'Centro': 'região central com acesso aos principais corredores e ao transporte municipal',
-  'Rudge Ramos': 'região próxima às ligações com São Caetano do Sul e à Via Anchieta',
-  'Baeta Neves': 'bairro próximo ao Centro e ao Paço Municipal de São Bernardo',
-  'Assunção': 'região conectada ao Centro de São Bernardo pela Avenida João Firmino',
-  'Nova Petrópolis': 'bairro residencial próximo à região central de São Bernardo',
-  'Paulicéia': 'região com acesso pela Via Anchieta e ligação com Diadema',
-  'Demarchi': 'região de São Bernardo próxima à Via Anchieta e ao corredor da Avenida Maria Servidei Demarchi',
-  'Campestre': 'bairro de Santo André na divisa com São Caetano do Sul',
-  'Bairro Jardim': 'região de Santo André próxima ao Centro e à Avenida Dom Pedro II',
-  'Vila Assunção': 'bairro de Santo André com acesso à região central',
-  'Vila Pires': 'região residencial de Santo André conectada ao Centro',
-  'Utinga': 'bairro de Santo André próximo às ligações com São Caetano e a capital',
-  'Parque das Nações': 'região de Santo André atendida a partir da unidade de São Bernardo',
-  'Vila Bastos': 'bairro residencial de Santo André próximo ao Centro',
-  'Vila Guiomar': 'bairro de Santo André próximo ao Bairro Jardim e à Faculdade de Medicina do ABC',
-  'Vila Alpina': 'bairro de Santo André próximo ao Bairro Jardim e às vias centrais',
-  'Santa Maria': 'região residencial próxima ao Campestre e à Avenida dos Estados',
-  'Vila Metalúrgica': 'bairro de Santo André próximo a Utinga e São Caetano',
-  'Santa Paula': 'bairro de São Caetano próximo à Avenida Goiás',
-  'Santo Antônio': 'região central de São Caetano do Sul',
-  'Barcelona': 'bairro de São Caetano com ligação para Santo André',
-  'Cerâmica': 'região de São Caetano próxima à Avenida Goiás',
-  'Nova Gerty': 'bairro de São Caetano com acesso para São Bernardo',
-  'Oswaldo Cruz': 'região residencial próxima ao Centro de São Caetano',
-  'Olímpico': 'bairro de São Caetano com acesso aos corredores que levam a São Bernardo'
+  'sao-bernardo-do-campo': {
+    'Alves Dias': 'fica na região leste da cidade, com ligação pela Estrada dos Alvarengas',
+    'Anchieta': 'tem acesso aos corredores da Rodovia Anchieta e ao Centro',
+    'Assunção': 'se conecta à região central pela Avenida João Firmino',
+    'Baeta Neves': 'fica perto do Centro e do Paço Municipal',
+    'Centro': 'concentra comércio, serviços e conexões de transporte da cidade',
+    'Chácara Inglesa': 'fica na área residencial próxima ao Centro',
+    'Cooperativa': 'combina áreas residenciais e industriais no eixo da Avenida Humberto de Alencar Castelo Branco',
+    'Demarchi': 'se estende junto à Via Anchieta e à Avenida Maria Servidei Demarchi',
+    'Dos Casa': 'fica na região leste, próxima à Estrada dos Alvarengas',
+    'Ferrazópolis': 'está próximo ao Centro e aos acessos da Via Anchieta',
+    'Independência': 'está na região sudeste, conectada aos principais corredores da cidade',
+    'Jardim do Mar': 'é onde fica a unidade da 4Chip, próximo à Avenida Kennedy e ao Paço Municipal',
+    'Jordanópolis': 'fica próximo à divisa com Diadema e aos acessos da Rodovia dos Imigrantes',
+    'Nova Petrópolis': 'é uma área residencial perto da região central',
+    'Parque dos Pássaros': 'é uma área residencial com ruas arborizadas e casas',
+    'Paulicéia': 'tem ligação com Diadema e acesso pela Via Anchieta',
+    'Planalto': 'fica perto dos corredores industriais e da Via Anchieta',
+    'Rudge Ramos': 'tem ligação com São Caetano do Sul e acesso à Via Anchieta',
+    'Santa Terezinha': 'fica perto da região central e do Paço Municipal',
+    'Taboão': 'está na divisa com Diadema, próximo à Rodovia dos Imigrantes'
+  },
+  'santo-andre': {
+    'Bairro Jardim': 'tem como referências a Rua das Figueiras e o Grand Plaza Shopping, na área próxima ao Centro',
+    'Campestre': 'fica na divisa com São Caetano do Sul e reúne ruas residenciais e comércio local',
+    'Vila Assunção': 'fica na região do Parque Central e do Shopping ABC',
+    'Vila Bastos': 'é uma área residencial vizinha ao Centro de Santo André',
+    'Vila Guiomar': 'fica próxima ao Bairro Jardim e à Faculdade de Medicina do ABC',
+    'Parque das Nações': 'tem como referência o comércio da Avenida Vieira de Carvalho e o Parque Chácara Pignatari',
+    'Vila Gilda': 'fica no entorno do Shopping ABC e da Avenida Pereira Barreto',
+    'Centro': 'reúne o calçadão da Oliveira Lima, a estação da CPTM e o terminal de ônibus',
+    'Vila Alpina': 'fica próxima ao Bairro Jardim e às vias de acesso à região central',
+    'Vila Pires': 'tem no Clube Atlético Aramaçan e na Avenida Dom Pedro I referências conhecidas da região',
+    'Paraíso': 'fica próximo à Vila Gilda e aos corredores da Avenida Pereira Barreto',
+    'Vila Valparaíso': 'é uma área residencial com acesso à Via Anchieta',
+    'Utinga': 'faz divisa com São Caetano e conta com estação da CPTM e comércio local',
+    'Santa Maria': 'fica próximo ao Campestre e à Avenida dos Estados',
+    'Jardim Bela Vista': 'fica perto da Avenida Portugal e da região central',
+    'Vila Alice': 'está entre o Campestre e a Avenida Industrial',
+    'Jardim Alzira Franco': 'é uma região residencial na área leste de Santo André',
+    'Casa Branca': 'fica próxima ao Centro e a serviços de transporte',
+    'Jardim Stella': 'fica na divisa com São Bernardo do Campo, com acesso ao corredor do trólebus',
+    'Parque Jaçatuba': 'tem como referências o Parque Regional da Criança e o Esporte Clube Santo André'
+  },
+  'sao-caetano-do-sul': {
+    'Barcelona': 'fica na ligação entre São Caetano e Santo André',
+    'Boa Vista': 'é uma das regiões residenciais de São Caetano do Sul',
+    'Centro': 'concentra comércio, serviços e conexões de transporte da cidade',
+    'Cerâmica': 'tem como referência o ParkShopping São Caetano e a Avenida Goiás',
+    'Fundação': 'fica na porção norte da cidade, próxima à divisa com São Paulo',
+    'Jardim São Caetano': 'fica na área sul do município, próxima ao limite com São Bernardo',
+    'Mauá': 'é uma das áreas residenciais de São Caetano do Sul',
+    'Nova Gerty': 'fica na região sul e tem ligação com os bairros vizinhos do ABC',
+    'Olímpico': 'tem acesso aos corredores que conectam São Caetano a São Bernardo',
+    'Oswaldo Cruz': 'é uma região residencial próxima ao Centro',
+    'Prosperidade': 'fica na parte norte do município, próxima à divisa com São Paulo',
+    'Santa Maria': 'fica próximo ao Campestre e à divisa com Santo André',
+    'Santa Paula': 'tem ligação com a Avenida Goiás e a área central',
+    'Santo Antônio': 'fica próximo à região central e aos serviços municipais',
+    'São José': 'fica na região sul do município, próximo às ligações com São Bernardo'
+  }
 };
 
 const slugify = value => value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
@@ -81,9 +99,10 @@ const crumbs = (city, area) => `<nav class="breadcrumbs wrap" aria-label="Navega
 
 function localSection(city, area) {
   const place = area ? `${area}, ${city.name}` : city.name;
-  const context = area ? `${area} é ${details[area] || `uma região de ${city.name}`}. A 4Chip atende moradores do bairro na unidade de São Bernardo do Campo.` : city.intro;
+  const localDetail = area ? details[city.slug]?.[area] || `faz parte da área atendida na região de ${city.name}` : '';
+  const context = area ? `Em ${area}, ${city.name}, ${localDetail}. Quem procura conserto de notebook ou manutenção de computador nessa região pode falar com a 4Chip pelo WhatsApp para tirar dúvidas antes de levar o equipamento. A análise técnica e o orçamento sem compromisso são feitos na loja em São Bernardo do Campo.` : city.intro;
   const neighbors = city.nearby.filter(n => n !== area).slice(0, 6);
-  return `<section class="section local-content" aria-labelledby="local-title"><div class="wrap local-grid"><div><p class="kicker dark"><span></span> Atendimento para ${place}</p><h2 id="local-title">Conserto e manutenção de notebook em ${place}.</h2><p>${context}</p><p>${city.access}</p><h3>O que a 4Chip avalia</h3><p>Para moradores de ${place}, a assistência recebe notebooks Windows, MacBooks, computadores desktop e PCs gamer para análise de defeitos em tela, teclado, bateria, carcaça, conectores, placa-mãe e BGA, além de Windows, formatação, software, antivírus, limpeza e upgrades.</p><h3>Como funciona o atendimento para ${area || city.short}</h3><p>O contato por WhatsApp é para informações. O equipamento deve ser levado à unidade da 4Chip no Jardim do Mar, em São Bernardo do Campo, onde ocorre a análise técnica e é preparado o orçamento sem compromisso. Não há unidade ou coleta anunciada em ${area ? `${area}, ` : ''}${city.name}.</p></div><aside><h3>Outras regiões de ${city.name}</h3><ul>${neighbors.map(n => `<li><a href="/${city.slug}/${areaSlug(n)}/">Conserto de notebook em ${n}</a></li>`).join('')}</ul><a class="secondary-blue" href="/${city.slug}/">Ver atendimento em ${city.name} <span aria-hidden="true">→</span></a></aside></div></section>`;
+  return `<section class="section local-content" aria-labelledby="local-title"><div class="wrap local-grid"><div><p class="kicker dark"><span></span> Atendimento para ${place}</p><h2 id="local-title">Conserto e manutenção de notebook em ${place}.</h2><p>${context}</p><p>${city.access}</p><h3>O que a 4Chip avalia</h3><p>Se você está em ${place}, pode levar notebook Windows, MacBook, computador desktop ou PC gamer para análise de tela, teclado, bateria, carcaça, conectores, placa-mãe e BGA, além de instalação de Windows, formatação, software, antivírus, limpeza e upgrades. A equipe verifica o equipamento na loja antes de apresentar o orçamento.</p><h3>Como funciona o atendimento para ${area || city.short}</h3><p>O WhatsApp é um canal para informações sobre o atendimento a quem está em ${area ? `${area}, ` : ''}${city.name}. Para fazer o orçamento sem compromisso, leve o equipamento à unidade da 4Chip no Jardim do Mar, em São Bernardo do Campo. Não há unidade ou coleta anunciada em ${area ? `${area}, ` : ''}${city.name}.</p></div><aside><h3>Outras regiões de ${city.name}</h3><ul>${neighbors.map(n => `<li><a href="/${city.slug}/${areaSlug(n)}/">Conserto de notebook em ${n}</a></li>`).join('')}</ul><a class="secondary-blue" href="/${city.slug}/">Ver atendimento em ${city.name} <span aria-hidden="true">→</span></a></aside></div></section>`;
 }
 
 function schema(city, area, url, title) {
