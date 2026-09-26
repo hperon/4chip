@@ -18,7 +18,7 @@ const cities = [
     slug: 'santo-andre', name: 'Santo André', short: 'Santo André',
     intro: 'A 4Chip atende moradores de Santo André que procuram conserto de notebook e manutenção de computador no ABC. O equipamento é analisado na unidade de São Bernardo antes da apresentação do orçamento.',
     access: 'A loja fica no Jardim do Mar, em São Bernardo, com acesso a partir de Santo André pela Avenida Pereira Barreto e pelos principais corredores do ABC.',
-    nearby: ['Acampamento Anchieta', 'Araçaúva', 'Bangú', 'Campestre', 'Campo Grande', 'Casa Branca', 'Cata Preta', 'Centreville', 'Centro', 'Cidade São Jorge', 'Condomínio Maracanã', 'Estância Rio Grande', 'Jardim', 'Jardim Alvorada', 'Jardim Alzira Franco', 'Jardim Ana Maria', 'Jardim Bela Vista', 'Jardim Bom Pastor', 'Jardim Cipreste', 'Jardim Clube de Campo', 'Jardim Cristiane', 'Jardim das Maravilhas', 'Jardim do Estádio', 'Jardim Guarará', 'Jardim Guaripocaba', 'Jardim Ipanema', 'Jardim Irene', 'Jardim Itapoan', 'Jardim Jamaica', 'Jardim Joaquim Eugênio de Lima', 'Jardim Las Vegas', 'Jardim Marek', 'Jardim Rina', 'Jardim Santa Cristina', 'Jardim Santo Alberto', 'Jardim Santo André', 'Jardim Santo André CDHU', 'Jardim Santo Antônio', 'Jardim Stella', 'Jardim Telles de Menezes', 'Jardim Utinga', 'Jardim Vila Rica', 'Miami Riviera', 'Novo Homero Thon', 'Paraíso', 'Paranapiacaba', 'Parque América', 'Parque Capuava', 'Parque das Garças', 'Parque das Nações', 'Parque do Pedroso', 'Parque Erasmo Assunção', 'Parque Gerassi', 'Parque Jaçatuba', 'Parque João Ramalho', 'Parque Marajoara', 'Parque Novo Oratório', 'Parque Oratório', 'Parque Represa Billings II', 'Parque Represa Billings III', 'Parque Rio Grande', 'Pinheirinho', 'Pólo Petroquímico Capuava', 'Recreio da Borda do Campo', 'Rio Bonito', 'Rio Grande', 'Rio Mogi', 'Rio Pequeno', 'Santa Terezinha', 'Silveira', 'Sítio dos Teco', 'Sítio dos Vianas', 'Sítio Taquaral', 'Três Divisas', 'Utinga', 'Várzea do Tamanduateí', 'Vila Alice', 'Vila Alpina', 'Vila Alzira', 'Vila América', 'Vila Aquilino', 'Vila Assunção', 'Vila Bastos', 'Vila Camilópolis', 'Vila Curuçá', 'Vila Floresta', 'Vila Francisco Matarazzo', 'Vila Gilda', 'Vila Guaraciaba', 'Vila Guarani', 'Vila Guiomar', 'Vila Helena', 'Vila Homero Thon', 'Vila Humaitá', 'Vila João Ramalho', 'Vila Junqueira', 'Vila Linda', 'Vila Lucinda', 'Vila Lutécia', 'Vila Luzita', 'Vila Metalúrgica', 'Vila Palmares', 'Vila Pires', 'Vila Príncipe de Gales', 'Vila Progresso', 'Vila Sacadura Cabral', 'Vila Scarpelli', 'Vila Suíça', 'Vila Tibiriçá', 'Vila Valparaíso', 'Vila Vitória', 'Waisberg']
+    nearby: ['Bairro Jardim', 'Campestre', 'Vila Assunção', 'Vila Bastos', 'Vila Guiomar', 'Parque das Nações', 'Vila Gilda', 'Centro', 'Vila Alpina', 'Vila Pires', 'Paraíso', 'Vila Valparaíso', 'Utinga', 'Santa Maria', 'Jardim Bela Vista', 'Vila Alice', 'Jardim Alzira Franco', 'Casa Branca', 'Jardim Stella', 'Parque Jaçatuba']
   },
   {
     slug: 'sao-caetano-do-sul', name: 'São Caetano do Sul', short: 'São Caetano',
@@ -55,11 +55,15 @@ const details = {
   'Paulicéia': 'região com acesso pela Via Anchieta e ligação com Diadema',
   'Demarchi': 'região de São Bernardo próxima à Via Anchieta e ao corredor da Avenida Maria Servidei Demarchi',
   'Campestre': 'bairro de Santo André na divisa com São Caetano do Sul',
-  'Jardim': 'região de Santo André próxima ao Centro e à Avenida Dom Pedro II',
+  'Bairro Jardim': 'região de Santo André próxima ao Centro e à Avenida Dom Pedro II',
   'Vila Assunção': 'bairro de Santo André com acesso à região central',
   'Vila Pires': 'região residencial de Santo André conectada ao Centro',
   'Utinga': 'bairro de Santo André próximo às ligações com São Caetano e a capital',
   'Parque das Nações': 'região de Santo André atendida a partir da unidade de São Bernardo',
+  'Vila Bastos': 'bairro residencial de Santo André próximo ao Centro',
+  'Vila Guiomar': 'bairro de Santo André próximo ao Bairro Jardim e à Faculdade de Medicina do ABC',
+  'Vila Alpina': 'bairro de Santo André próximo ao Bairro Jardim e às vias centrais',
+  'Santa Maria': 'região residencial próxima ao Campestre e à Avenida dos Estados',
   'Vila Metalúrgica': 'bairro de Santo André próximo a Utinga e São Caetano',
   'Santa Paula': 'bairro de São Caetano próximo à Avenida Goiás',
   'Santo Antônio': 'região central de São Caetano do Sul',
@@ -71,6 +75,7 @@ const details = {
 };
 
 const slugify = value => value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+const areaSlug = area => area === 'Bairro Jardim' ? 'jardim' : slugify(area);
 
 const crumbs = (city, area) => `<nav class="breadcrumbs wrap" aria-label="Navegação estrutural"><a href="/">Início</a><span>›</span><a href="/regioes-atendidas/">Regiões atendidas</a><span>›</span>${area ? `<a href="/${city.slug}/">${city.name}</a><span>›</span><span aria-current="page">${area}</span>` : `<span aria-current="page">${city.name}</span>`}</nav>`;
 
@@ -78,7 +83,7 @@ function localSection(city, area) {
   const place = area ? `${area}, ${city.name}` : city.name;
   const context = area ? `${area} é ${details[area] || `uma região de ${city.name}`}. A 4Chip atende moradores do bairro na unidade de São Bernardo do Campo.` : city.intro;
   const neighbors = city.nearby.filter(n => n !== area).slice(0, 6);
-  return `<section class="section local-content" aria-labelledby="local-title"><div class="wrap local-grid"><div><p class="kicker dark"><span></span> Atendimento para ${place}</p><h2 id="local-title">Conserto e manutenção de notebook em ${place}.</h2><p>${context}</p><p>${city.access}</p><h3>O que a 4Chip avalia</h3><p>Para moradores de ${place}, a assistência recebe notebooks Windows, MacBooks, computadores desktop e PCs gamer para análise de defeitos em tela, teclado, bateria, carcaça, conectores, placa-mãe e BGA, além de Windows, formatação, software, antivírus, limpeza e upgrades.</p><h3>Como funciona o atendimento para ${area || city.short}</h3><p>O contato por WhatsApp é para informações. O equipamento deve ser levado à unidade da 4Chip no Jardim do Mar, em São Bernardo do Campo, onde ocorre a análise técnica e é preparado o orçamento sem compromisso. Não há unidade ou coleta anunciada em ${area ? `${area}, ` : ''}${city.name}.</p></div><aside><h3>Outras regiões de ${city.name}</h3><ul>${neighbors.map(n => `<li><a href="/${city.slug}/${slugify(n)}/">Conserto de notebook em ${n}</a></li>`).join('')}</ul><a class="secondary-blue" href="/${city.slug}/">Ver atendimento em ${city.name} <span aria-hidden="true">→</span></a></aside></div></section>`;
+  return `<section class="section local-content" aria-labelledby="local-title"><div class="wrap local-grid"><div><p class="kicker dark"><span></span> Atendimento para ${place}</p><h2 id="local-title">Conserto e manutenção de notebook em ${place}.</h2><p>${context}</p><p>${city.access}</p><h3>O que a 4Chip avalia</h3><p>Para moradores de ${place}, a assistência recebe notebooks Windows, MacBooks, computadores desktop e PCs gamer para análise de defeitos em tela, teclado, bateria, carcaça, conectores, placa-mãe e BGA, além de Windows, formatação, software, antivírus, limpeza e upgrades.</p><h3>Como funciona o atendimento para ${area || city.short}</h3><p>O contato por WhatsApp é para informações. O equipamento deve ser levado à unidade da 4Chip no Jardim do Mar, em São Bernardo do Campo, onde ocorre a análise técnica e é preparado o orçamento sem compromisso. Não há unidade ou coleta anunciada em ${area ? `${area}, ` : ''}${city.name}.</p></div><aside><h3>Outras regiões de ${city.name}</h3><ul>${neighbors.map(n => `<li><a href="/${city.slug}/${areaSlug(n)}/">Conserto de notebook em ${n}</a></li>`).join('')}</ul><a class="secondary-blue" href="/${city.slug}/">Ver atendimento em ${city.name} <span aria-hidden="true">→</span></a></aside></div></section>`;
 }
 
 function schema(city, area, url, title) {
@@ -99,11 +104,11 @@ function schema(city, area, url, title) {
 
 function render(city, area = '') {
   const place = area ? `${area}, ${city.name}` : city.name;
-  const folder = area ? path.join(dist, city.slug, slugify(area)) : path.join(dist, city.slug);
-  const url = `${domain}/${city.slug}/${area ? `${slugify(area)}/` : ''}`;
+  const folder = area ? path.join(dist, city.slug, areaSlug(area)) : path.join(dist, city.slug);
+  const url = `${domain}/${city.slug}/${area ? `${areaSlug(area)}/` : ''}`;
   const title = `Conserto de Notebook em ${place} | 4Chip`;
   const description = `Conserto e manutenção de notebook, PC e computador para ${place}. Análise técnica na 4Chip em São Bernardo e orçamento sem compromisso.`;
-  const indexable = !area || city.slug === 'sao-bernardo-do-campo' || city.slug === 'sao-caetano-do-sul' || ['Centro','Campestre','Jardim','Vila Assunção','Vila Pires','Utinga','Parque das Nações','Vila Metalúrgica'].includes(area);
+  const indexable = !area || city.slug === 'sao-bernardo-do-campo' || city.slug === 'sao-caetano-do-sul' || (city.slug === 'santo-andre' && city.nearby.includes(area));
   let html = base
     .replace(/<title>[^<]*<\/title>/, `<title>${title}</title>`)
   .replace(/<meta name="description" content="[^"]*">/, `<meta name="description" content="${description}">`)
@@ -139,7 +144,7 @@ for (const city of cities) {
   for (const area of city.nearby) urls.push(render(city, area));
 }
 
-const hubCards = cities.map(city => `<article><h2><a href="/${city.slug}/">Conserto de notebook em ${city.name}</a></h2><p>${city.intro}</p><ul>${city.nearby.map(area=>`<li><a href="/${city.slug}/${slugify(area)}/">${area}</a></li>`).join('')}</ul></article>`).join('');
+const hubCards = cities.map(city => `<article><h2><a href="/${city.slug}/">Conserto de notebook em ${city.name}</a></h2><p>${city.intro}</p><ul>${city.nearby.map(area=>`<li><a href="/${city.slug}/${areaSlug(area)}/">${area}</a></li>`).join('')}</ul></article>`).join('');
 const servicePages = [
   {slug:'conserto-computador',name:'computador, desktop e PC gamer',title:'Conserto de Computador e PC no ABC',summary:'Diagnóstico e manutenção de desktop e PC gamer: falhas de inicialização, lentidão, superaquecimento, limpeza técnica, upgrades de SSD e memória e troca de componentes.',keywords:['conserto pc','manutenção pc','conserto desktop','manutenção desktop','conserto computador','manutenção computador']},
   {slug:'conserto-macbook',name:'MacBook',title:'Conserto e Manutenção de MacBook no ABC',summary:'Análise técnica de MacBook para falhas de tela, bateria, teclado, conectores, placa e sistema. Serviço independente, sem vínculo de assistência autorizada.',keywords:['conserto MacBook','manutenção MacBook','reparo MacBook']},

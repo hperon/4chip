@@ -3,6 +3,13 @@
   "outputDirectory": "dist",
   "cleanUrls": true,
   "trailingSlash": true,
+  "routes": [
+    {
+      "src": "^/santo-andre/(?!jardim/?$|campestre/?$|vila-assuncao/?$|vila-bastos/?$|vila-guiomar/?$|parque-das-nacoes/?$|vila-gilda/?$|centro/?$|vila-alpina/?$|vila-pires/?$|paraiso/?$|vila-valparaiso/?$|utinga/?$|santa-maria/?$|jardim-bela-vista/?$|vila-alice/?$|jardim-alzira-franco/?$|casa-branca/?$|jardim-stella/?$|parque-jacatuba/?$)([^/]+)/?$",
+      "headers": {"Location": "/santo-andre/"},
+      "status": 301
+    }
+  ],
   "redirects": [
     {"source": "/sao-bernardo-do-campo/balnearia/", "destination": "/sao-bernardo-do-campo/", "permanent": true},
     {"source": "/sao-bernardo-do-campo/batistini/", "destination": "/sao-bernardo-do-campo/", "permanent": true},
