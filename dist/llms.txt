@@ -24,6 +24,10 @@ O WhatsApp é usado para informações e contato. O cliente leva o equipamento a
 ## Fonte canônica
 
 - [Página principal](https://consertonotebook.com.br/)
+- [Serviços especializados](https://consertonotebook.com.br/servicos/)
+- [Conserto de computador e PC](https://consertonotebook.com.br/servicos/conserto-computador/)
+- [Conserto de MacBook](https://consertonotebook.com.br/servicos/conserto-macbook/)
+- [Conserto de PC gamer](https://consertonotebook.com.br/servicos/conserto-pc-gamer/)
 - [Regiões atendidas](https://consertonotebook.com.br/regioes-atendidas/)
 - [São Bernardo do Campo](https://consertonotebook.com.br/sao-bernardo-do-campo/)
 - [Santo André](https://consertonotebook.com.br/santo-andre/)

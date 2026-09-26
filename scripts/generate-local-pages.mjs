@@ -12,7 +12,7 @@ const cities = [
     slug: 'sao-bernardo-do-campo', name: 'São Bernardo do Campo', short: 'São Bernardo',
     intro: 'A loja da 4Chip fica no Jardim do Mar, em São Bernardo do Campo. Moradores da cidade podem levar notebooks, PCs e desktops diretamente para análise técnica e orçamento sem compromisso.',
     access: 'A unidade fica na Av. Índico, 196, com acesso pela região central, Avenida Kennedy, Paço Municipal e principais corredores da cidade.',
-    nearby: ['Jardim do Mar', 'Centro', 'Rudge Ramos', 'Baeta Neves', 'Assunção', 'Nova Petrópolis', 'Paulicéia', 'Demarchi']
+    nearby: ['Alves Dias', 'Anchieta', 'Assunção', 'Baeta Neves', 'Balneária', 'Batistini', 'Centro', 'Cooperativa', 'Demarchi', 'Dos Casa', 'Dos Finco', 'Ferrazópolis', 'Independência', 'Jordanópolis', 'Montanhão', 'Nova Petrópolis', 'Paulicéia', 'Planalto', 'Rio Grande', 'Rudge Ramos', 'Santa Terezinha', 'Taboão', 'Jardim do Mar']
   },
   {
     slug: 'santo-andre', name: 'Santo André', short: 'Santo André',
@@ -29,6 +29,21 @@ const cities = [
 ];
 
 const details = {
+  'Alves Dias': 'bairro da região leste de São Bernardo, conectado ao corredor da Estrada dos Alvarengas',
+  'Anchieta': 'região próxima à Rodovia Anchieta e aos acessos para o Centro de São Bernardo',
+  'Balneária': 'bairro na região do Riacho Grande, distante da unidade do Jardim do Mar',
+  'Batistini': 'bairro da região sul de São Bernardo, com acesso pela Estrada Galvão Bueno',
+  'Cooperativa': 'região industrial e residencial no eixo da Avenida Humberto de Alencar Castelo Branco',
+  'Dos Casa': 'bairro da região leste de São Bernardo, próximo à Estrada dos Alvarengas',
+  'Dos Finco': 'região do Riacho Grande, na área próxima à Represa Billings',
+  'Ferrazópolis': 'bairro próximo ao Centro e aos acessos da Via Anchieta',
+  'Independência': 'bairro da região sudeste de São Bernardo, próximo aos corredores da cidade',
+  'Jordanópolis': 'bairro próximo à divisa com Diadema e aos acessos da Rodovia dos Imigrantes',
+  'Montanhão': 'região residencial na área leste de São Bernardo',
+  'Planalto': 'bairro próximo aos corredores industriais e à Via Anchieta',
+  'Rio Grande': 'região do Riacho Grande, às margens da Represa Billings',
+  'Santa Terezinha': 'bairro próximo à região central e ao Paço Municipal',
+  'Taboão': 'bairro na divisa com Diadema, próximo à Rodovia dos Imigrantes',
   'Jardim do Mar': 'bairro onde está localizada a unidade da 4Chip, próximo à Avenida Kennedy e ao Paço Municipal',
   'Centro': 'região central com acesso aos principais corredores e ao transporte municipal',
   'Rudge Ramos': 'região próxima às ligações com São Caetano do Sul e à Via Anchieta',
@@ -54,10 +69,6 @@ const details = {
 };
 
 const slugify = value => value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-
-for (const generatedDir of ['conserto-notebook', 'regioes-atendidas', ...cities.map(city => city.slug)]) {
-  fs.rmSync(path.join(dist, generatedDir), {recursive:true, force:true});
-}
 
 const crumbs = (city, area) => `<nav class="breadcrumbs wrap" aria-label="Navegação estrutural"><a href="/">Início</a><span>›</span><a href="/regioes-atendidas/">Regiões atendidas</a><span>›</span>${area ? `<a href="/${city.slug}/">${city.name}</a><span>›</span><span aria-current="page">${area}</span>` : `<span aria-current="page">${city.name}</span>`}</nav>`;
 
@@ -92,7 +103,7 @@ function render(city, area = '') {
   const description = `Conserto e manutenção de notebook, PC e computador para ${place}. Análise técnica na 4Chip em São Bernardo e orçamento sem compromisso.`;
   let html = base
     .replace(/<title>[^<]*<\/title>/, `<title>${title}</title>`)
-    .replace(/<meta name="description" content="[^"]*">/, `<meta name="description" content="${description}">`)
+  .replace(/<meta name="description" content="[^"]*">/, `<meta name="description" content="${description}">`)
     .replace(/<meta name="geo\.placename" content="[^"]*">/, `<meta name="geo.placename" content="${place}">`)
     .replace(/<meta property="og:title" content="[^"]*">/, `<meta property="og:title" content="${title}">`)
     .replace(/<meta property="og:description" content="[^"]*">/, `<meta property="og:description" content="${description}">`)
@@ -108,13 +119,14 @@ function render(city, area = '') {
     .replace('href="#inicio" aria-label="4Chip Informática, início"', 'href="/" aria-label="4Chip Informática, início"')
     .replace('href="#inicio" aria-label="4Chip Informática, voltar ao início"', 'href="/" aria-label="4Chip Informática, voltar ao início"')
     .replace('<main id="conteudo">', `<main id="conteudo">${crumbs(city, area)}`)
-    .replace('São Bernardo do Campo e região do ABC</p><h1>Reparo de notebook, MacBook e <em>PC gamer.</em></h1>', `${place} e região do ABC</p><h1>Conserto de notebook em <em>${area || city.short}.</em></h1>`)
+    .replace('São Bernardo do Campo e região do ABC</p><h1>Conserto de notebook em <em>São Bernardo do Campo.</em></h1>', `${place} e região do ABC</p><h1>Conserto de notebook em <em>${area || city.short}.</em></h1>`)
+    .replace('<em>São Bernardo.</em></h1>', '<em>São Bernardo do Campo.</em></h1>')
     .replace('Manutenção completa para notebooks, MacBooks, computadores desktop e PCs gamer: troca de tela, teclado e bateria, restauração de carcaça, reparo BGA, Windows, formatação, software e antivírus.', `Atendimento para ${place}: manutenção de notebooks, MacBooks, desktops e PCs gamer, incluindo tela, teclado, bateria, carcaça, BGA, Windows e formatação.`)
     .replace('<details><summary>Onde fica a assistência?<span aria-hidden="true">+</span></summary><p>Na Av. Índico, 196, Jardim do Mar, em São Bernardo do Campo, próximo ao centro e com acesso para clientes da região do ABC.</p></details>', `<details><summary>Onde fica a assistência para quem está em ${place}?<span aria-hidden="true">+</span></summary><p>${city.access} O atendimento técnico e o orçamento são realizados na unidade de São Bernardo do Campo.</p></details>`)
     .replace('<section class="section services" id="servicos">', `${localSection(city, area)}<section class="section services" id="servicos">`);
   fs.mkdirSync(folder, {recursive:true});
   fs.writeFileSync(path.join(folder, 'index.html'), html);
-  return {url, updated, priority: area ? '0.7' : '0.9'};
+  return {url, updated, priority: area ? '0.5' : '0.9', indexable: !area || city.slug !== 'sao-bernardo-do-campo' || ['Jardim do Mar','Centro','Rudge Ramos','Baeta Neves','Assunção','Nova Petrópolis','Paulicéia','Demarchi'].includes(area)};
 }
 
 const urls = [{url:`${domain}/`,updated,priority:'1.0'},{url:`${domain}/regioes-atendidas/`,updated,priority:'0.9'}];
@@ -124,6 +136,13 @@ for (const city of cities) {
 }
 
 const hubCards = cities.map(city => `<article><h2><a href="/${city.slug}/">Conserto de notebook em ${city.name}</a></h2><p>${city.intro}</p><ul>${city.nearby.map(area=>`<li><a href="/${city.slug}/${slugify(area)}/">${area}</a></li>`).join('')}</ul></article>`).join('');
+const servicePages = [
+  {slug:'conserto-computador',name:'computador, desktop e PC gamer',title:'Conserto de Computador e PC no ABC',summary:'Diagnóstico e manutenção de desktop e PC gamer: falhas de inicialização, lentidão, superaquecimento, limpeza técnica, upgrades de SSD e memória e troca de componentes.',keywords:['conserto pc','manutenção pc','conserto desktop','manutenção desktop','conserto computador','manutenção computador']},
+  {slug:'conserto-macbook',name:'MacBook',title:'Conserto e Manutenção de MacBook no ABC',summary:'Análise técnica de MacBook para falhas de tela, bateria, teclado, conectores, placa e sistema. Serviço independente, sem vínculo de assistência autorizada.',keywords:['conserto MacBook','manutenção MacBook','reparo MacBook']},
+  {slug:'conserto-pc-gamer',name:'PC gamer',title:'Conserto e Manutenção de PC Gamer no ABC',summary:'Manutenção de PC gamer para falhas de hardware, superaquecimento, ruído, desligamentos, limpeza, refrigeração e upgrades de componentes.',keywords:['conserto PC gamer','manutenção PC gamer','reparo computador gamer']}
+];
+const serviceCards = servicePages.map(service => `<article><h2><a href="/servicos/${service.slug}/">${service.title}</a></h2><p>${service.summary}</p><p>Disponível em São Bernardo, Santo André e São Caetano.</p></article>`);
+
 const hub = base
   .replace(/<title>[^<]*<\/title>/, '<title>Conserto de Notebook no ABC Paulista | Regiões atendidas</title>')
   .replace(/<meta name="description" content="[^"]*">/, '<meta name="description" content="Encontre conserto e manutenção de notebook, PC e computador em São Bernardo, Santo André, São Caetano e bairros do ABC.">')
@@ -131,11 +150,53 @@ const hub = base
   .replace('href="assets/4chip-logo.png"', 'href="/assets/4chip-logo.png"').replaceAll('src="assets/', 'src="/assets/').replace('href="styles.css"', 'href="/styles.css"').replace('src="app.js"', 'src="/app.js"')
   .replace('href="#inicio" aria-label="4Chip Informática, início"', 'href="/" aria-label="4Chip Informática, início"')
   .replace('<main id="conteudo">', '<main id="conteudo"><nav class="breadcrumbs wrap" aria-label="Navegação estrutural"><a href="/">Início</a><span>›</span><span aria-current="page">Regiões atendidas</span></nav>')
-  .replace('São Bernardo do Campo e região do ABC</p><h1>Reparo de notebook, MacBook e <em>PC gamer.</em></h1>', 'São Bernardo, Santo André e São Caetano</p><h1>Conserto de notebook no <em>ABC Paulista.</em></h1>')
-  .replace('<section class="section services" id="servicos">', `<section class="section location-hub"><div class="wrap"><p class="kicker dark"><span></span> Regiões atendidas</p><h2>Encontre sua cidade e seu bairro.</h2><div class="location-grid">${hubCards}</div></div></section><section class="section services" id="servicos">`);
+  .replace('São Bernardo do Campo e região do ABC</p><h1>Conserto de notebook em <em>São Bernardo do Campo.</em></h1>', 'São Bernardo, Santo André e São Caetano</p><h1>Conserto de notebook no <em>ABC Paulista.</em></h1>')
+  .replace('<section class="section services" id="servicos">', `<section class="section location-hub"><div class="wrap"><p class="kicker dark"><span></span> Regiões atendidas</p><h2>Encontre sua cidade e seu bairro.</h2><div class="location-grid">${hubCards}</div><h2>Outros tipos de conserto</h2><div class="location-grid">${serviceCards.join('')}</div></div></section><section class="section services" id="servicos">`);
 fs.mkdirSync(path.join(dist,'regioes-atendidas'),{recursive:true});
 fs.writeFileSync(path.join(dist,'regioes-atendidas','index.html'),hub);
 
-const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map(x=>`  <url><loc>${x.url}</loc><lastmod>${x.updated}</lastmod><changefreq>monthly</changefreq><priority>${x.priority}</priority></url>`).join('\n')}\n</urlset>\n`;
+for (const service of servicePages) {
+  const title = `${service.title} | 4Chip`;
+  const description = `${service.summary} Atendimento em São Bernardo do Campo, Santo André e São Caetano. Orçamento sem compromisso após análise na loja.`;
+  const url = `${domain}/servicos/${service.slug}/`;
+  const content = `<section class="section local-content"><div class="wrap local-grid"><div><p class="kicker dark"><span></span> Assistência técnica independente</p><h2>${service.title}</h2><p>${service.summary}</p><p>A equipe atende equipamentos levados à unidade da 4Chip, na Av. Índico, 196, Jardim do Mar, São Bernardo do Campo. O WhatsApp é para informações e contato; o orçamento sem compromisso é feito após análise técnica presencial.</p><p>Atendimento para clientes de São Bernardo do Campo, Santo André e São Caetano do Sul. A 4Chip não é assistência autorizada por fabricantes.</p><h3>Serviços relacionados</h3><p>${service.keywords.join(' · ')}</p><a class="button" href="https://wa.me/5511980503850?text=${encodeURIComponent(`Olá, gostaria de informações sobre ${service.name}.`)}" target="_blank" rel="noopener">Pedir informações no WhatsApp ↗</a></div><aside><h3>Atendimento no ABC</h3><ul>${cities.map(city=>`<li><a href="/${city.slug}/">${city.name}</a></li>`).join('')}</ul><a class="secondary-blue" href="/regioes-atendidas/">Ver bairros atendidos →</a></aside></div></section>`;
+  let html = base
+    .replace(/<title>[^<]*<\/title>/, `<title>${title}</title>`)
+    .replace(/<meta name="description" content="[^"]*">/, `<meta name="description" content="${description}">`)
+    .replace(/<meta property="og:title" content="[^"]*">/, `<meta property="og:title" content="${title}">`)
+    .replace(/<meta property="og:description" content="[^"]*">/, `<meta property="og:description" content="${description}">`)
+    .replace(/<meta property="og:url" content="[^"]*">/, `<meta property="og:url" content="${url}">`)
+    .replace(/<meta name="twitter:title" content="[^"]*">/, `<meta name="twitter:title" content="${title}">`)
+    .replace(/<meta name="twitter:description" content="[^"]*">/, `<meta name="twitter:description" content="${description}">`)
+    .replace(/<link rel="canonical" href="[^"]*">/, `<link rel="canonical" href="${url}">`)
+    .replace('href="assets/4chip-logo.png"', 'href="/assets/4chip-logo.png"').replaceAll('src="assets/', 'src="/assets/').replace('href="styles.css"', 'href="/styles.css"').replace('src="app.js"', 'src="/app.js"')
+    .replace('href="#inicio" aria-label="4Chip Informática, início"', 'href="/" aria-label="4Chip Informática, início"')
+    .replace('href="#inicio" aria-label="4Chip Informática, voltar ao início"', 'href="/" aria-label="4Chip Informática, voltar ao início"')
+    .replace('São Bernardo do Campo e região do ABC</p><h1>Conserto de notebook em <em>São Bernardo do Campo.</em></h1>', `São Bernardo do Campo e região do ABC</p><h1>${service.title.replace(' no ABC',' no <em>ABC</em>').replace(' de PC no ABC',' de PC no <em>ABC</em>')}.</h1>`)
+    .replace('Manutenção completa para notebooks, MacBooks, computadores desktop e PCs gamer: troca de tela, teclado e bateria, restauração de carcaça, reparo BGA, Windows, formatação, software e antivírus.', service.summary)
+    .replace('<section class="section services" id="servicos">', `${content}<section class="section services" id="servicos">`);
+  const folder = path.join(dist,'servicos',service.slug);
+  fs.mkdirSync(folder,{recursive:true});
+  fs.writeFileSync(path.join(folder,'index.html'),html);
+  urls.push({url,updated,priority:'0.8'});
+}
+
+const serviceHub = base
+  .replace(/<title>[^<]*<\/title>/, '<title>Serviços de Conserto de Computadores | 4Chip</title>')
+  .replace(/<meta name="description" content="[^"]*">/, '<meta name="description" content="Conheça os serviços de conserto de computador, MacBook e PC gamer da 4Chip no ABC Paulista.">')
+  .replace(/<link rel="canonical" href="[^"]*">/, `<link rel="canonical" href="${domain}/servicos/">`)
+  .replace('href="assets/4chip-logo.png"', 'href="/assets/4chip-logo.png"').replaceAll('src="assets/', 'src="/assets/').replace('href="styles.css"', 'href="/styles.css"').replace('src="app.js"', 'src="/app.js"')
+  .replace('href="#inicio" aria-label="4Chip Informática, início"', 'href="/" aria-label="4Chip Informática, início"')
+  .replace('São Bernardo do Campo e região do ABC</p><h1>Conserto de notebook em <em>São Bernardo do Campo.</em></h1>', 'Serviços da 4Chip no ABC Paulista</p><h1>Conserto de computador, <em>MacBook e PC gamer.</em></h1>')
+  .replace('<section class="section services" id="servicos">', `<section class="section location-hub"><div class="wrap"><p class="kicker dark"><span></span> Serviços especializados</p><h2>Encontre o serviço para seu equipamento.</h2><div class="location-grid">${serviceCards.join('')}</div></div></section><section class="section services" id="servicos">`);
+fs.mkdirSync(path.join(dist,'servicos'),{recursive:true});
+fs.writeFileSync(path.join(dist,'servicos','index.html'),serviceHub);
+urls.push({url:`${domain}/servicos/`,updated,priority:'0.8'});
+
+const llmsPath = path.join(dist,'llms.txt');
+const llms = fs.readFileSync(llmsPath,'utf8').replace('- [Regiões atendidas](https://consertonotebook.com.br/regioes-atendidas/)', '- [Serviços especializados](https://consertonotebook.com.br/servicos/)\n- [Conserto de computador e PC](https://consertonotebook.com.br/servicos/conserto-computador/)\n- [Conserto de MacBook](https://consertonotebook.com.br/servicos/conserto-macbook/)\n- [Conserto de PC gamer](https://consertonotebook.com.br/servicos/conserto-pc-gamer/)\n- [Regiões atendidas](https://consertonotebook.com.br/regioes-atendidas/)');
+fs.writeFileSync(llmsPath,llms);
+
+const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.filter(x=>x.indexable!==false).map(x=>`  <url><loc>${x.url}</loc><lastmod>${x.updated}</lastmod><changefreq>monthly</changefreq><priority>${x.priority}</priority></url>`).join('\n')}\n</urlset>\n`;
 fs.writeFileSync(path.join(dist,'sitemap.xml'),sitemap);
 console.log(`Generated ${urls.length} indexable URLs.`);

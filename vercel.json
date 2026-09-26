@@ -4,7 +4,7 @@
   "cleanUrls": true,
   "trailingSlash": true,
   "redirects": [
-    {"source": "/conserto-notebook", "destination": "/regioes-atendidas", "permanent": true},
+    {"source": "/conserto-notebook", "destination": "/", "permanent": true},
     {"source": "/conserto-notebook/:path*", "destination": "/:path*", "permanent": true}
   ]
 }
