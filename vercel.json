@@ -4,6 +4,11 @@
   "cleanUrls": true,
   "trailingSlash": true,
   "redirects": [
+    {"source": "/sao-bernardo-do-campo/balnearia", "destination": "/sao-bernardo-do-campo", "permanent": true},
+    {"source": "/sao-bernardo-do-campo/batistini", "destination": "/sao-bernardo-do-campo", "permanent": true},
+    {"source": "/sao-bernardo-do-campo/dos-finco", "destination": "/sao-bernardo-do-campo", "permanent": true},
+    {"source": "/sao-bernardo-do-campo/montanhao", "destination": "/sao-bernardo-do-campo", "permanent": true},
+    {"source": "/sao-bernardo-do-campo/rio-grande", "destination": "/sao-bernardo-do-campo", "permanent": true},
     {"source": "/conserto-notebook", "destination": "/", "permanent": true},
     {"source": "/conserto-notebook/:path*", "destination": "/:path*", "permanent": true}
   ]

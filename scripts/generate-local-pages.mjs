@@ -12,7 +12,7 @@ const cities = [
     slug: 'sao-bernardo-do-campo', name: 'São Bernardo do Campo', short: 'São Bernardo',
     intro: 'A loja da 4Chip fica no Jardim do Mar, em São Bernardo do Campo. Moradores da cidade podem levar notebooks, PCs e desktops diretamente para análise técnica e orçamento sem compromisso.',
     access: 'A unidade fica na Av. Índico, 196, com acesso pela região central, Avenida Kennedy, Paço Municipal e principais corredores da cidade.',
-    nearby: ['Alves Dias', 'Anchieta', 'Assunção', 'Baeta Neves', 'Balneária', 'Batistini', 'Centro', 'Cooperativa', 'Demarchi', 'Dos Casa', 'Dos Finco', 'Ferrazópolis', 'Independência', 'Jordanópolis', 'Montanhão', 'Nova Petrópolis', 'Paulicéia', 'Planalto', 'Rio Grande', 'Rudge Ramos', 'Santa Terezinha', 'Taboão', 'Jardim do Mar']
+    nearby: ['Alves Dias', 'Anchieta', 'Assunção', 'Baeta Neves', 'Centro', 'Chácara Inglesa', 'Cooperativa', 'Demarchi', 'Dos Casa', 'Ferrazópolis', 'Independência', 'Jardim do Mar', 'Jordanópolis', 'Nova Petrópolis', 'Parque dos Pássaros', 'Paulicéia', 'Planalto', 'Rudge Ramos', 'Santa Terezinha', 'Taboão']
   },
   {
     slug: 'santo-andre', name: 'Santo André', short: 'Santo André',
@@ -45,6 +45,8 @@ const details = {
   'Santa Terezinha': 'bairro próximo à região central e ao Paço Municipal',
   'Taboão': 'bairro na divisa com Diadema, próximo à Rodovia dos Imigrantes',
   'Jardim do Mar': 'bairro onde está localizada a unidade da 4Chip, próximo à Avenida Kennedy e ao Paço Municipal',
+  'Chácara Inglesa': 'bairro residencial próximo ao Centro de São Bernardo do Campo',
+  'Parque dos Pássaros': 'bairro residencial conhecido por casas amplas e ruas arborizadas',
   'Centro': 'região central com acesso aos principais corredores e ao transporte municipal',
   'Rudge Ramos': 'região próxima às ligações com São Caetano do Sul e à Via Anchieta',
   'Baeta Neves': 'bairro próximo ao Centro e ao Paço Municipal de São Bernardo',
@@ -101,7 +103,7 @@ function render(city, area = '') {
   const url = `${domain}/${city.slug}/${area ? `${slugify(area)}/` : ''}`;
   const title = `Conserto de Notebook em ${place} | 4Chip`;
   const description = `Conserto e manutenção de notebook, PC e computador para ${place}. Análise técnica na 4Chip em São Bernardo e orçamento sem compromisso.`;
-  const indexable = !area || ['Jardim do Mar','Centro','Rudge Ramos','Baeta Neves','Assunção','Nova Petrópolis','Paulicéia','Demarchi','Campestre','Jardim','Vila Assunção','Vila Pires','Utinga','Parque das Nações','Vila Metalúrgica','Centro','Santa Paula','Santo Antônio','Barcelona','Cerâmica','Nova Gerty','Oswaldo Cruz','Olímpico'].includes(area);
+  const indexable = !area || city.slug === 'sao-bernardo-do-campo' || ['Campestre','Jardim','Vila Assunção','Vila Pires','Utinga','Parque das Nações','Vila Metalúrgica','Centro','Santa Paula','Santo Antônio','Barcelona','Cerâmica','Nova Gerty','Oswaldo Cruz','Olímpico'].includes(area);
   let html = base
     .replace(/<title>[^<]*<\/title>/, `<title>${title}</title>`)
   .replace(/<meta name="description" content="[^"]*">/, `<meta name="description" content="${description}">`)
