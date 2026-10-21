@@ -12,7 +12,9 @@ const workshopPhotoExtras = [
   ['assets/upgrade-ssd-memoria.webp', 'Imagem ilustrativa de instalação de SSD e memória em notebook aberto', 'Upgrade de SSD e memória']
 ].map(([src, alt, caption]) => `<figure class="photo-extra"><img src="${src}" width="768" height="512" loading="lazy" decoding="async" alt="${alt}"><figcaption>${caption}</figcaption></figure>`).join('');
 const serviceDirectoryLink = '<a class="all-regions" href="/servicos/">Ver serviços por equipamento, cidade e bairro <span aria-hidden="true">↗</span></a>';
-const base = fs.readFileSync(path.join(dist, 'index.html'), 'utf8')
+const indexPath = path.join(dist, 'index.html');
+const base = fs.readFileSync(indexPath, 'utf8')
+  .replace(/,"aggregateRating":\{[^}]*\}/, '')
   .replaceAll('496', '503')
   .replace(
     '<li><b>4,7 ★</b><span>em 503 avaliações</span></li>',
@@ -34,15 +36,16 @@ const base = fs.readFileSync(path.join(dist, 'index.html'), 'utf8')
     '<a class="all-regions" href="/regioes-atendidas/">Ver todas as cidades e bairros <span aria-hidden="true">↗</span></a>',
     `<a class="all-regions" href="/regioes-atendidas/">Ver todas as cidades e bairros <span aria-hidden="true">↗</span></a>${serviceDirectoryLink}`
   );
+fs.writeFileSync(indexPath, base);
 const domain = 'https://consertonotebook.com.br';
-const updated = '2026-09-26';
+const updated = '2026-10-21';
 
 const cities = [
   {
     slug: 'sao-bernardo-do-campo', name: 'São Bernardo do Campo', short: 'São Bernardo',
     intro: 'A loja da 4Chip fica no Jardim do Mar, em São Bernardo do Campo. Moradores da cidade podem levar notebooks, PCs e desktops diretamente para análise técnica e orçamento sem compromisso.',
     access: 'A unidade fica na Av. Índico, 196, com acesso pela região central, Avenida Kennedy, Paço Municipal e principais corredores da cidade.',
-    nearby: ['Alves Dias', 'Anchieta', 'Assunção', 'Baeta Neves', 'Centro', 'Chácara Inglesa', 'Cooperativa', 'Demarchi', 'Dos Casa', 'Ferrazópolis', 'Independência', 'Jardim do Mar', 'Jordanópolis', 'Nova Petrópolis', 'Parque dos Pássaros', 'Paulicéia', 'Planalto', 'Rudge Ramos', 'Santa Terezinha', 'Taboão']
+    nearby: ['Alto da Serra', 'Alves Dias', 'Anchieta', 'Assunção', 'Baeta Neves', 'Balneária', 'Batistini', 'Botujuru', 'Capivari', 'Chácara Inglesa', 'Centro', 'Cooperativa', 'Curucutu', 'Demarchi', 'Dos Alvarenga', 'Dos Casa', 'Dos Finco', 'Dos Imigrantes', 'Ferrazópolis', 'Independência', 'Jardim do Mar', 'Jordanópolis', 'Montanhão', 'Nova Petrópolis', 'Parque dos Pássaros', 'Paulicéia', 'Planalto', 'Rio Grande', 'Rio Pequeno', 'Rudge Ramos', 'Santa Cruz', 'Santa Terezinha', 'Taboão', 'Taquacetuba', 'Tatetos', 'Varginha', 'Zanzalá']
   },
   {
     slug: 'santo-andre', name: 'Santo André', short: 'Santo André',
@@ -60,26 +63,43 @@ const cities = [
 
 const details = {
   'sao-bernardo-do-campo': {
+    'Alto da Serra': 'fica na zona rural do distrito de Riacho Grande, conforme a divisão oficial de bairros do município',
     'Alves Dias': 'fica na região leste da cidade, com ligação pela Estrada dos Alvarengas',
     'Anchieta': 'tem acesso aos corredores da Rodovia Anchieta e ao Centro',
     'Assunção': 'se conecta à região central pela Avenida João Firmino',
     'Baeta Neves': 'fica perto do Centro e do Paço Municipal',
+    'Balneária': 'integra a divisão oficial de bairros de São Bernardo do Campo',
+    'Batistini': 'integra a zona urbana sede de São Bernardo do Campo',
+    'Botujuru': 'integra a zona urbana sede de São Bernardo do Campo',
+    'Capivari': 'fica na zona rural do distrito de Riacho Grande, conforme a divisão oficial de bairros do município',
     'Centro': 'concentra comércio, serviços e conexões de transporte da cidade',
     'Chácara Inglesa': 'fica na área residencial próxima ao Centro',
     'Cooperativa': 'combina áreas residenciais e industriais no eixo da Avenida Humberto de Alencar Castelo Branco',
+    'Curucutu': 'fica na zona rural do distrito de Riacho Grande, conforme a divisão oficial de bairros do município',
     'Demarchi': 'se estende junto à Via Anchieta e à Avenida Maria Servidei Demarchi',
+    'Dos Alvarenga': 'integra a zona urbana sede de São Bernardo do Campo',
     'Dos Casa': 'fica na região leste, próxima à Estrada dos Alvarengas',
+    'Dos Finco': 'fica na zona urbana do distrito de Riacho Grande, conforme a divisão oficial de bairros do município',
+    'Dos Imigrantes': 'fica na zona rural do distrito de Riacho Grande, conforme a divisão oficial de bairros do município',
     'Ferrazópolis': 'está próximo ao Centro e aos acessos da Via Anchieta',
     'Independência': 'está na região sudeste, conectada aos principais corredores da cidade',
     'Jardim do Mar': 'é onde fica a unidade da 4Chip, próximo à Avenida Kennedy e ao Paço Municipal',
     'Jordanópolis': 'fica próximo à divisa com Diadema e aos acessos da Rodovia dos Imigrantes',
+    'Montanhão': 'integra a zona urbana sede de São Bernardo do Campo',
     'Nova Petrópolis': 'é uma área residencial perto da região central',
     'Parque dos Pássaros': 'é uma área residencial com ruas arborizadas e casas',
     'Paulicéia': 'tem ligação com Diadema e acesso pela Via Anchieta',
     'Planalto': 'fica perto dos corredores industriais e da Via Anchieta',
+    'Rio Grande': 'fica na zona urbana do distrito de Riacho Grande, conforme a divisão oficial de bairros do município',
+    'Rio Pequeno': 'fica na zona rural do distrito de Riacho Grande, conforme a divisão oficial de bairros do município',
     'Rudge Ramos': 'tem ligação com São Caetano do Sul e acesso à Via Anchieta',
+    'Santa Cruz': 'fica na zona rural do distrito de Riacho Grande, conforme a divisão oficial de bairros do município',
     'Santa Terezinha': 'fica perto da região central e do Paço Municipal',
-    'Taboão': 'está na divisa com Diadema, próximo à Rodovia dos Imigrantes'
+    'Taboão': 'está na divisa com Diadema, próximo à Rodovia dos Imigrantes',
+    'Taquacetuba': 'fica na zona rural do distrito de Riacho Grande, conforme a divisão oficial de bairros do município',
+    'Tatetos': 'fica na zona rural do distrito de Riacho Grande, conforme a divisão oficial de bairros do município',
+    'Varginha': 'fica na zona rural do distrito de Riacho Grande, conforme a divisão oficial de bairros do município',
+    'Zanzalá': 'fica na zona rural do distrito de Riacho Grande, conforme a divisão oficial de bairros do município'
   },
   'santo-andre': {
     'Bairro Jardim': 'tem como referências a Rua das Figueiras e o Grand Plaza Shopping, na área próxima ao Centro',
